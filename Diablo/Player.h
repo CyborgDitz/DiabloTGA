@@ -22,6 +22,11 @@ public:
     int GetMaxHealth() const {return myMaxHealth;}
     int GetCarryCap() const {return myCarryCap;}
     int GetDefense() const {return myDefense;}
+    const char* GetName() const { return myName; }
+    
+    
+    void SetName();
+  
 
 private:
     
@@ -34,4 +39,5 @@ private:
     int myMaxHealth{};
     int myCarryCap{};
     int myDefense{};
+    char myName[17] = {};
 };
