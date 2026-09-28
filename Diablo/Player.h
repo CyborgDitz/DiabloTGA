@@ -24,7 +24,8 @@ public:
     int GetDefense() const {return myDefense;}
     const char* GetName() const { return myName; }
     
-    
+    void TakeDamage(int aDamage){myHealth -= aDamage;}
+    int DealDamage(){return myAtk;}
     void SetName();
   
 

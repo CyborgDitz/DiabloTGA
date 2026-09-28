@@ -5,7 +5,11 @@
 int main(int argc, char* argv[])
 {
     GameManager game;
+    Player& player = game.GetPlayer();
+    Room& room = game.GetRoom();
+    Enemy& enemy = game.GetEnemy();
     bool isMenu = true;
+    game.SayName(enemy.GetName());
     // game.GetPlayer().PrintStats();
     while (isMenu && game.GetGameState() != GameManager::GameState::Exit)
     {
@@ -16,8 +20,10 @@ int main(int argc, char* argv[])
         }
         if (game.GetGameState() == GameManager::GameState::Play)
         {
-            std::cout << "I enter the room" << std::endl;
-             game.EnterRoom(game.GetPlayer());
+            
+            game.EnterRoom(player, room);
+           
+            game.Combat(player,enemy, room);
             
         }
         {

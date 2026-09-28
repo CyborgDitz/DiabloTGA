@@ -26,32 +26,42 @@ public:
     };
 
     Player& GetPlayer() {return player;}
-    GameState GetGameState() const {return gameState;}
-    Room* GetRoom(Room* aRoom) const {return aRoom;}
-    Cheats GetCheats() const {return cheats;}
-    Door GetDoor() const {return door;}
-    static Enemy GetEnemy(Enemy& aEnemy) {return aEnemy;}
-    std::vector<Enemy> GetEnemies(){return enemies;}
+    GameState& GetGameState() {return gameState;}
+    Room& GetRoom() {return room0;}
+    Cheats& GetCheats()  {return cheats;}
+    Enemy& GetEnemy() {return enemy0;}
+    
+    //todo vectors later
+    // std::vector <Room> GetRooms() {return rooms;}
+    // std::vector <Door> GetDoors() {return doors;}
+    // std::vector<Enemy> GetEnemies(){return enemies;}
    
+    void SetGameState();
+    //void SetRoom(std::vector<Room>* aRoom);
     
     void PrintEnemyStats(Enemy* aEnemy);
-    int GetInput(const int aInputMin,const  int aInputMax);
-    void SetGameState();
+    int SetInput(const int aInputMin,const  int aInputMax);
     void MainMenuStuff();
-    void EnterRoom(Player& aPlayer);
-    void SayName(const char* aName);
-    void PrintStats(Room* aRoom);
+    void EnterRoom(Player& aPlayer, Room& aRoom);
+    const char* SayName(const char* aName);
+    void Combat(Player& aPlayer, Enemy& aEnemy, Room& aRoom);
+    void AttackEnemy(Player& aPlayer, Enemy& aEnemy);
+    void EnemyAttacks(Player& aPlayer, Enemy& aEnemy, const Room& aRoom);
     
+    void PrintStats(Room* aRoom);
+    void SetRoomState(Room& aRoom);
+    void RoomStateStuff(Room& aRoom);
 
 private:
     
     GameState gameState = GameState::Main_Menu;
     Player player{6,6,6};
-    Enemy enemy0{6,7};
-    Room room0{6,7,6,(*"blabla")};
+    Enemy enemy0{6,7, "bob"};
+    Room room0{6,7,6,("blab")};
     Cheats cheats;
     Door door;
+    // todo vectors later
     // std::vector<Room> rooms;
-    std::vector <Door> doors;
-    std::vector<Enemy> enemies;
+    // std::vector <Door> doors;
+    // std::vector<Enemy> enemies;
 };

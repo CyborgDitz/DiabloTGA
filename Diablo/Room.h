@@ -1,18 +1,18 @@
 ﻿#pragma once
-#include "GameManager.h"
+
 
 class Room
 {
 public:
-    Room(const int aRoomID, const int aDoors, const int aEnemies, const char aName)
+    Room(const int aRoomID, const int aDoors, const int aEnemies, const char* aName)
     {
         myRoomID = aRoomID;
         myDoors = aDoors;
         myEnemies = aEnemies;
-        myName[17] = aName;
+        myName[17] = *aName;
     }
     
-    enum class RoomMenu
+    enum class RoomState
     {
         Exit =0,
         Explore = 1,
@@ -21,15 +21,13 @@ public:
         Open_Door =4
     };
     const char* GetName() const { return myName; }
-    int GetRoomID() const { return myRoomID; }
     int getDoorAmount() const { return myDoors; }
-    RoomMenu getRoomMenu() const { return myMenu; }
-    
-    void SetRoomID(int aID) { myRoomID = aID; }
+    int getEnemiesAmount() const { return myEnemies; }
+    RoomState GetRoomState() const { return myMenu; }
+   
     void SetDoors(int aDoors) { myDoors = aDoors; }
     void PrintStats() const;
-    void SetRoomState(GameManager& aGame);
-    void RoomMenuStuff(GameManager& aGame);
+    void SetRoomState(RoomState& aMenu) { myMenu = aMenu; }
 
 private:
     int myRoomID {};
@@ -37,5 +35,5 @@ private:
     int myEnemies {};
     char myName[17] = "Room";
     
-    RoomMenu myMenu = RoomMenu::Explore;
+    RoomState myMenu = RoomState::Explore;
 };
