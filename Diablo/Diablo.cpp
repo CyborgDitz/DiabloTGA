@@ -8,30 +8,26 @@ int main(int argc, char* argv[])
     Player& player = game.GetPlayer();
     Room& room = game.GetRoom();
     Enemy& enemy = game.GetEnemy();
+    GameManager::MainState& mainState = game.GetMainState();
+
     bool isMenu = true;
-    game.SayName(enemy.GetName());
-    // game.GetPlayer().PrintStats();
-    while (isMenu && game.GetGameState() != GameManager::GameState::Exit)
+    while (isMenu && mainState != GameManager::MainState::Exit && player.GetIsAlive())
     {
-        game.MainMenuStuff();
+        player.SetName();
+        game.EnterMainMenu();
         {
-            std::cout << "Player writes name as I enter the dungeon\n" << std::endl;
-            system("pause");
+            std::cout << "Welcome to the Pits of Eternal Goob, " << player.GetName() << std::endl;
         }
-        if (game.GetGameState() == GameManager::GameState::Play)
+        while (mainState == GameManager::MainState::Play && player.GetIsAlive())
         {
-            
             game.EnterRoom(player, room);
-           
-            game.Combat(player,enemy, room);
-            
-        }
+            game.RoomMenu(room, player, enemy);
+        } 
+        system("pause");
+        std::cout << "I am outside of the room\n" << std::endl;
+ 
+       
         {
-            system("pause");
-            
-            std::cout << "I am printing of room choice inputs\n" << std::endl;
-            system("pause");
-            std::cout << "I am input and write that i am the input choice\n" << std::endl;
             system("pause");
         }
     }

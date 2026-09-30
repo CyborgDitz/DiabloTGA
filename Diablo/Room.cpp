@@ -1,14 +1,42 @@
 ﻿#include "Room.h"
 #include <iostream>
+#include "Library.h"
 
-#include "GameManager.h"
 
-void Room::PrintStats() const
+void Room::SetState()
 {
-    std::cout << "The room id: " << myRoomID<< std::endl;
-    std::cout << "The  amount of doors " << myDoors << std::endl;
-    std::cout << "The amount of Enemies " << myEnemies << std::endl;
-    std::cout << "If I had loot I would say it here :( " << std::endl;
+    const int minInput = static_cast<int>(RoomState::Exit);
+    const int maxInput = static_cast<int>(RoomState::Count);
+    while (true)
+    {
+        int input = Library::SetInput(minInput, sizeof(myState));
+
+        if (minInput <= input && input < maxInput)
+        {
+            myState = static_cast<RoomState>(input);
+            break;
+        }
+        else
+        {
+            std::cout << "Outside of range! Range is : " << minInput << " to " << maxInput << std::endl;
+        }
+    }
 }
 
 
+void Room::PrintStats() const
+{
+    std::cout << "The room has: " << std::endl;
+    std::cout << "The room id: " << myRoomID << std::endl;
+    std::cout << myDoors << " doors! " << std::endl;
+    if (myHasEnemies == true)
+    {
+        std::cout << myEnemies << " Enemies!! Watch out! " << std::endl;
+    }
+    else
+    {
+        std::cout << myEnemies << " The room has no monsters! " << std::endl;
+    }
+
+    std::cout << "If I had loot I would say it here :( \n" << std::endl;
+}

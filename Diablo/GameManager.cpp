@@ -1,159 +1,86 @@
 ﻿#include "GameManager.h"
-
 #include <iostream>
 #include <ostream>
+
+#include "Library.h"
 
 void GameManager::PrintEnemyStats(Enemy* aEnemy)
 {
     {
-        std::cout << "SIX SEEVEEEEN" << std::endl;
+        std::cout << "SIX SEEVEEEEN" << aEnemy << std::endl;
     }
 }
 
-int GameManager::SetInput(const int aInputMin,const  int aInputMax)
+void GameManager::PrintStats(Room* aRoom)
 {
-        int inputInt{};
-        const int inputMin = aInputMin;
-        const int inputMax = aInputMax;
-    while (true)
-    {
-
-        std::cin >> inputInt;
-        if (std::cin.fail())
-        {
-            std::cin.clear();
-            std::cin.ignore(1000, '\n');
-        }
-        else if (inputMin <= inputInt && inputInt <= inputMax)
-        {
-            break;
-        }
-    }
-    return inputInt;
-};
-void GameManager::SetGameState()
-{  
-   
-    const int min = 0;
-    //todo enum
-    int choice = SetInput(min,sizeof( gameState));
-    gameState = static_cast<GameState>(choice);
+    std::cout << "room stats yo" << aRoom << std::endl;
 }
-void GameManager::MainMenuStuff()
+
+void GameManager::EnterMainMenu()
 {
     {
         std::cout << "I am in the main menu saying the dungoeon name" << std::endl;
-        
-            {
-                std::cout << "thes are the choices" << std::endl;
-                std::cout << "1: Enter Dungeon, 2: Cheats, 0: exit game" << std::endl;
-                SetGameState();
-            }
 
-            if (GetGameState() == GameState::Exit)
-            {
-                std::cout << "I am the ending the game" << std::endl;
-            }
-            else if (GetGameState() == GameState::Play)
-            {
-                std::cout << "I am in the main menu saying to enter the dungoen" << std::endl;
-            }
-            else if (GetGameState() == GameState::Cheats_Menu)
-            {
-                std::cout << "I am in the main menu saying the cheats" << std::endl;
-            }
+        {
+            std::cout << "These are your choices" << std::endl;
+            std::cout << "1: Enter Dungeon, 2: Cheats, 0: exit game" << std::endl;
+            SetMainState();
         }
+
+        if (mainState == MainState::Exit)
+        {
+            std::cout << "I am main menu choices func  ending the game" << std::endl;
+        }
+        else if (mainState == MainState::Play)
+        {
+            std::cout << "I am in the main menu choices func saying to enter the dungoen" << std::endl;
+        }
+        else if (mainState == MainState::Cheats_Menu)
+        {
+            std::cout << "I am in the main menu choices func saying the cheats" << std::endl;
+        }
+    }
+}
+
+void GameManager::SetMainState()
+{ 
+    int min = static_cast<int>(MainState::Exit);
+    int choice = Library::SetInput(min, sizeof(mainState));
+    mainState = static_cast<MainState>(choice);
 }
 
 void GameManager::EnterRoom(Player& aPlayer, Room& aRoom)
 {
-    Room& room = aRoom;
-    
-    SayName(aPlayer.GetName());
-    SayName(room.GetName());
+    system("cls");
+    std::cout << aPlayer.GetName() << '\t' <<
+        " enters the... " << '\t' <<
+        aRoom.GetName() << std::endl;
+
     system("pause");
-    room.PrintStats();
-    system("pause");
-    aPlayer.PrintStats();
+    aRoom.PrintStats();
 }
 
-const char* GameManager::SayName(const char* aName)
-{
-    for (int i = 0; i < sizeof(aName); i++)
-    {
-        if (aName[i] == '\0')
-        {
-            std::cout << std::endl;
-            return aName;
-        }
-        std::cout << aName[i];
-    }
-}
-void GameManager::Combat(Player& aPlayer, Enemy& aEnemy, Room& aRoom)
-{
-    AttackEnemy(aPlayer, aEnemy);
-    EnemyAttacks(aPlayer,aEnemy,aRoom);
-}
-void GameManager::AttackEnemy(Player& aPlayer, Enemy& aEnemy)
-{
-    Enemy& enemyTarget = aEnemy;
-    
-    const int damage = aPlayer.DealDamage();
-    const char* targetName = aPlayer.GetName();
-    const char* attackerNamer = aEnemy.GetName();
-    
-    enemyTarget.TakeDamage(damage);
-    std::cout << SayName(attackerNamer)<< "dealt " << damage << "damage to " << SayName(targetName)<< std::endl;
-}
-void GameManager::EnemyAttacks(Player& aPlayer, Enemy& aEnemy, const Room& aRoom)
-{
-    const int damage = aEnemy.DealDamage();
-    const char* targetName = aPlayer.GetName();
-    const char* attackerNamer = aEnemy.GetName();
-    
-    const int enemyAttacks = aRoom.getEnemiesAmount();
-    std::cout << SayName(attackerNamer)<< "dealt " << damage << "damage to " << SayName(targetName)<< std::endl;
-    //todo loop per enemy in vector
-   
-    for (int i = 0; i < enemyAttacks; ++i)
-    {
-        aPlayer.TakeDamage(aEnemy.DealDamage());
-    }
-}
-
-void GameManager::SetRoomState(Room& aRoom)
-{
-    Room rooms = aRoom;
-    const int min = 0;
-    //todo enum
-    int choice = SetInput(min,sizeof(rooms ));
-    Room::RoomState state = static_cast<Room::RoomState>(choice);
-    rooms.SetRoomState(state);
-}
-
-void GameManager::RoomStateStuff(Room& aRoom)
+void GameManager::RoomMenu(Room& aRoom, Player aPlayer, Enemy aEnemy)
 {
     {
-        const Room::RoomState state = aRoom.GetRoomState();
-        std::cout << "I am in the main menu saying the dungoeon name" << std::endl;
+            Library::SayRoomMenu();
+            aRoom.SetState();
         
-        {
-            std::cout << "thes are the choices" << std::endl;
-            std::cout << "1: Explore\t 2: Attack the Monsters!\t 3: See your stats\t 4: Open Door "  << std::endl;
-            SetRoomState(aRoom);
-        }
+        const Room::RoomState state = aRoom.GetRoomState();
 
         if (state == Room::RoomState::Exit)
         {
-            std::cout << "I am the ending the game cuz im dead i guess" << std::endl;
+            std::cout << "I am the ending the game cuz Im dead I guess" << std::endl;
         }
-        else if (state ==  Room::RoomState::Explore)
+        else if (state == Room::RoomState::Explore)
         {
             std::cout << "I am in the room menu saying whats inside it" << std::endl;
         }
-        else if (state ==  Room::RoomState::Combat)
-        {
-            std::cout << "pow pow pow" << std::endl;
+        else if (state == Room::RoomState::Combat)
+        {//reall want a combat class 
+            CombatManager::StartCombatLoop(aRoom, aPlayer, aEnemy);
         }
     }
 }
+
+

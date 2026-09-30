@@ -10,6 +10,10 @@ public:
         myDoors = aDoors;
         myEnemies = aEnemies;
         myName[17] = *aName;
+        if (myEnemies > 0)
+        {
+            myHasEnemies = true;
+        }
     }
     
     enum class RoomState
@@ -18,22 +22,30 @@ public:
         Explore = 1,
         Combat = 2,
         Print_Stats = 3,
-        Open_Door =4
+        Open_Door =4,
+        Count = 5,
     };
+    
     const char* GetName() const { return myName; }
     int getDoorAmount() const { return myDoors; }
     int getEnemiesAmount() const { return myEnemies; }
-    RoomState GetRoomState() const { return myMenu; }
-   
-    void SetDoors(int aDoors) { myDoors = aDoors; }
     void PrintStats() const;
-    void SetRoomState(RoomState& aMenu) { myMenu = aMenu; }
+    
+   
+    RoomState& GetRoomState()  { return myState; }
+    
+    void SetDoors(const int aDoors) { myDoors = aDoors; }
+    void SetState();
+
+
+   
 
 private:
     int myRoomID {};
     int myDoors = 2;
     int myEnemies {};
     char myName[17] = "Room";
-    
-    RoomState myMenu = RoomState::Explore;
+    bool myHasEnemies = false;
+  
+    RoomState myState = RoomState::Explore;
 };

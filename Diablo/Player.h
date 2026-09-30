@@ -10,10 +10,11 @@ public:
         myVit=aMyVit;
         myAtk= (myStr*myDex);
         myMaxHealth= (myVit*4) + (myStr*6) + (myDex*3);
+        myHealth = myMaxHealth;
         myCarryCap = myStr + (myDex*3);
         myDefense = myVit + (myDex);
     } 
-    void PrintStats();
+    void PrintStats() const;
     int GetStr() const { return myStr;}
     int GetDex( ) const { return myDex;}
     int GetVit() const {return myVit;}
@@ -24,14 +25,15 @@ public:
     int GetDefense() const {return myDefense;}
     const char* GetName() const { return myName; }
     
-    void TakeDamage(int aDamage){myHealth -= aDamage;}
-    int DealDamage(){return myAtk;}
+   
+    void TakeDamage(const int aDamage);
     void SetName();
-  
+    bool GetIsAlive(){return myIsAlive;}
 
 private:
     
   //  const char* myName[17] = {}; not MVP
+    char myName[17] = {};
     int myStr{};
     int myDex{};
     int myVit{};
@@ -40,5 +42,5 @@ private:
     int myMaxHealth{};
     int myCarryCap{};
     int myDefense{};
-    char myName[17] = {};
+    bool myIsAlive = true;
 };
