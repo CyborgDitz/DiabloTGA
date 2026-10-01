@@ -5,9 +5,8 @@
 class Room
 {
 public:
-    Room(const int aRoomID, const int aDoors, const int aEnemies, const char* aName)
+    Room(const int aDoors, const int aEnemies, const char* aName)
     {
-        myRoomID = aRoomID;
         myDoors = aDoors;
         myEnemies = aEnemies;
         myName[17] = *aName;
@@ -37,9 +36,6 @@ public:
     
     void SetDoors(const int aDoors) { myDoors = aDoors; }
     void SetState();
-
-
-   
 
 private:
     int myRoomID {};

@@ -21,7 +21,7 @@ void Player::PrintStats() const
 }
 void Player::TakeDamage(const int aDamage)
 {
-    //todo same func for monster and player
+    //todo same func for monster and myPlayer
     const int myCurrentHealth = myHealth;
     myHealth -= aDamage;
     myHealth = std::max(myHealth, 0);

@@ -23,19 +23,17 @@ void Room::SetState()
     }
 }
 
-
 void Room::PrintStats() const
 {
-    std::cout << "The room has: " << std::endl;
-    std::cout << "The room id: " << myRoomID << std::endl;
+    std::cout << "The myRoom0 has: " << std::endl;
     std::cout << myDoors << " doors! " << std::endl;
     if (myHasEnemies == true)
     {
-        std::cout << myEnemies << " Enemies!! Watch out! " << std::endl;
+        std::cout << "There are " << myEnemies << " Enemies!! Watch out! " << std::endl;
     }
     else
     {
-        std::cout << myEnemies << " The room has no monsters! " << std::endl;
+        std::cout << myEnemies << " The myRoom0 has no monsters! " << std::endl;
     }
 
     std::cout << "If I had loot I would say it here :( \n" << std::endl;

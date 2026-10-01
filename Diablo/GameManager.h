@@ -30,11 +30,11 @@ public:
     Room& GetRoom() {return myRoom0;}
     Cheats& GetCheats()  {return myCheats;}
     Enemy& GetEnemy() {return myEnemy0;}
-    std::vector<Enemy>&GetPopulation(){return myEnemyPopulation;}
+    std::vector<Enemy>&GetPopulation(){return myEnemies;}
   
     
     //todo vectors later
-    // std::vector <Room> GetRooms() {return rooms;}
+    // std::vector <Room> GetRooms() {return myRoom0s;}
     // std::vector <Door> GetDoors() {return doors;}
 
  
@@ -49,19 +49,23 @@ public:
     void PopulateEnemies(std::vector<Enemy>& aPopulation, Enemy& aEnemy);
 
     void SetMainState();
+    void PlayGame();
+
 private:
     
     MainState myState = MainState::Main_Menu;
     Player myPlayer{6,6,6};
     Enemy myEnemy0{1,1, "BobsterMonster"};
-    Enemy myEnemy1 {1, 1,"asshole"};
-    Room myRoom0{6,7,6,("blab")};
+    Enemy myEnemy1{1, 2,"Big Blob"};
+    Room myRoom0{2,1,("Pit")};
+    Room myRoom1{2,2,("Shower")};
+    Room myRoom2{2,3,("Ballgame Park")};
     Cheats myCheats {};
     Door myDoor {};
-    std::vector<Enemy> myEnemyPopulation;
+    std::vector<Enemy> myEnemies;
     
    
     // todo vectors later
-    // std::vector<Room> rooms;
+    // std::vector<Room> myRoom0s;
     // std::vector <Door> doors;
 };
