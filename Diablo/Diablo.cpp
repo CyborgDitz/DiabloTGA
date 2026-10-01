@@ -8,9 +8,13 @@ int main(int argc, char* argv[])
     Player& player = game.GetPlayer();
     Room& room = game.GetRoom();
     Enemy& enemy = game.GetEnemy();
+    std::vector<Enemy>& population = game.GetPopulation();
+    
+    population.push_back(enemy);
     bool isMenu = true; //mainstate enum menu
     player.SetName();
-    while ( game.GetMainState() != GameManager::MainState::Exit && isMenu && player.GetIsAlive())
+    
+    while (game.GetMainState() != GameManager::MainState::Exit && isMenu && player.GetIsAlive())
     {
         game.EnterMainMenu(player);
         game.SetGameState(game.GetMainState());
@@ -22,7 +26,7 @@ int main(int argc, char* argv[])
             }
             else if (game.GetMainState() == GameManager::MainState::Play)
             {
-                game.EnterRoom(player, room);
+                room.EnterRoom(player);
                 room.PrintStats();
                 Library::SayRoomMenu();
                 room.SetState();
@@ -40,9 +44,11 @@ int main(int argc, char* argv[])
                     else if (state == Room::RoomState::Combat)
                     {
                         //enum and vector empty?
-                        while (player.GetIsAlive() && enemy.GetDamage())
-                        player.TakeDamage(enemy.GetDamage());
-                        enemy.TakeDamage(player.GetIsAlive());
+                        while (player.GetIsAlive() && enemy.GetIsAlive())
+                        {
+                            player.TakeDamage(enemy.GetDamage());
+                            enemy.TakeDamage(player.GetIsAlive());
+                        }
                     }
                 }
             }

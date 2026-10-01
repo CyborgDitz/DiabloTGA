@@ -1,8 +1,6 @@
 ﻿#include "GameManager.h"
 #include <iostream>
 #include <ostream>
-
-#include "Combat.h"
 #include "Library.h"
 
 void GameManager::PrintEnemyStats(Enemy* aEnemy)
