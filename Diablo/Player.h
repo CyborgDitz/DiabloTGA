@@ -13,13 +13,14 @@ public:
         myHealth = myMaxHealth;
         myCarryCap = myStr + (myDex*3);
         myDefense = myVit + (myDex);
+        
     } 
     void PrintStats() const;
     int GetStr() const { return myStr;}
     int GetDex( ) const { return myDex;}
     int GetVit() const {return myVit;}
     int GetHealth() const {return myHealth;}
-    int GetAtk() const {return myAtk;}
+    int GetIsAlive() const {return myAtk;}
     int GetMaxHealth() const {return myMaxHealth;}
     int GetCarryCap() const {return myCarryCap;}
     int GetDefense() const {return myDefense;}
@@ -28,6 +29,7 @@ public:
    
     void TakeDamage(const int aDamage);
     void SetName();
+    void TestName();
     bool GetIsAlive(){return myIsAlive;}
 
 private:

@@ -1,5 +1,7 @@
 ﻿#pragma once
 #include <vector>
+
+#include "Combat.h"
 #include "Door.h"
 #include "Enemy.h"
 #include "Player.h"
@@ -25,17 +27,17 @@ public:
         Count = 4
     };
 
-    Player& GetPlayer() {return player;}
-    MainState& GetMainState() {return mainState;}
-    Room& GetRoom() {return room0;}
-    Cheats& GetCheats()  {return cheats;}
-    Enemy& GetEnemy() {return enemy0;}
+    Player& GetPlayer() {return myPlayer;}
+    MainState& GetMainState() {return myState;}
+    Room& GetRoom() {return myRoom0;}
+    Cheats& GetCheats()  {return myCheats;}
+    Enemy& GetEnemy() {return myEnemy0;}
   
     
     //todo vectors later
     // std::vector <Room> GetRooms() {return rooms;}
     // std::vector <Door> GetDoors() {return doors;}
-    // std::vector<Enemy> GetEnemies(){return enemies;}
+     std::vector<Enemy> GetEnemies(){return myEnemyPopulation;}
 
  
     //void SetRoom(std::vector<Room>* aRoom);
@@ -43,23 +45,25 @@ public:
  
     void PrintEnemyStats(Enemy* aEnemy);
     void PrintStats(Room* aRoom);
-    void EnterMainMenu();
+    void EnterMainMenu(Player& aPlayer);
     void EnterRoom(Player& aPlayer, Room& aRoom);
-   void SetGameState(MainState& aMainState){mainState = aMainState; }
-    void RoomMenu(Room& aRoom, Player aPlayer, Enemy aEnemy);
+   void SetGameState(const MainState& aMainState){myState = aMainState; }
+    
+    void PopulateEnemies(std::vector<Enemy>& aPopulation, Enemy& aEnemy);
 
     void SetMainState();
 private:
     
-    MainState mainState = MainState::Main_Menu;
-    Player player{6,6,6};
-    Enemy enemy0{1,1, "BobsterMonster"};
-    Room room0{6,7,6,("blab")};
-    Cheats cheats {};
-    Door door {};
+    MainState myState = MainState::Main_Menu;
+    Player myPlayer{6,6,6};
+    Enemy myEnemy0{1,1, "BobsterMonster"};
+    Room myRoom0{6,7,6,("blab")};
+    Cheats myCheats {};
+    Door myDoor {};
+    
    
     // todo vectors later
     // std::vector<Room> rooms;
     // std::vector <Door> doors;
-    std::vector<Enemy> enemies;
+    std::vector<Enemy> myEnemyPopulation;
 };

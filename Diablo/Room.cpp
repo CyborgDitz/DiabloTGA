@@ -40,3 +40,11 @@ void Room::PrintStats() const
 
     std::cout << "If I had loot I would say it here :( \n" << std::endl;
 }
+
+void Room::EnterRoom(const Player& aPlayer)
+{
+        system("cls");
+        std::cout << aPlayer.GetName() << '\t' <<
+            " enters the... " << '\t' <<
+            myName << '\n' << std::endl;
+}

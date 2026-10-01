@@ -31,6 +31,7 @@ void Player::TakeDamage(const int aDamage)
     {
         myIsAlive = false;
         std::cout << "I am dead and game ends bleh.." << std::endl;
+        system("pause");
         return;
     }
     std::cout << "It is still standing!" << std::endl;
@@ -41,8 +42,8 @@ void Player::SetName()
     while (true)
     {
         std::cout << "Name must at least 2 characters long and only contain letters" << std::endl;
-        char nameInput{};
-        std::cin.get(myName, 16);
+        
+       std::cin.get(myName, 16);
         if (std::cin.fail())
         {
             std::cin.clear();

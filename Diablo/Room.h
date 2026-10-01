@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include "Player.h"
 
 
 class Room
@@ -30,7 +31,7 @@ public:
     int getDoorAmount() const { return myDoors; }
     int getEnemiesAmount() const { return myEnemies; }
     void PrintStats() const;
-    
+    void EnterRoom(const Player& aPlayer);
    
     RoomState& GetRoomState()  { return myState; }
     

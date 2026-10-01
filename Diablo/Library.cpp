@@ -9,6 +9,7 @@ namespace Library
             const int inputMax = aInputMax;
             while (true)
             {
+                std::cout << "Choice: " << std::endl;
                 std::cin >> inputInt;
                 if (std::cin.fail())
                 {

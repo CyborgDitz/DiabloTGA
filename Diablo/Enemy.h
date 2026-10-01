@@ -12,12 +12,11 @@ public:
         strcpy_s(myName, aName);
     }
 
-    int GetHealth() { return myHealth; }
-    int MaxHealth() { return myMaxHealth; }
-    int GetDamage() { return myAtk; }
-    bool GetAlive() { return myIsAlive; }
+    int GetHealth() const { return myHealth; }
+    int MaxHealth() const { return myMaxHealth; }
+    int GetDamage() const { return myAtk; }
+    bool GetIsAlive() const { return myIsAlive; }
     const char* GetName() const { return myName; }
-    bool GetIsAlive() { return myIsAlive; }
     void TakeDamage(int aDamage);
 
 private:
@@ -25,6 +24,5 @@ private:
     int myMaxHealth{};
     int myHealth{};
     int myAtk{};
-    const int myDieAtThisNumber = 0;
     bool myIsAlive = true;
 };
