@@ -13,9 +13,9 @@ public:
         myHealth = myMaxHealth;
         myCarryCap = myStr + (myDex*3);
         myDefense = myVit + (myDex);
-        
     } 
     void PrintStats() const;
+    int GetAtk() const {return myAtk;}
     int GetStr() const { return myStr;}
     int GetDex( ) const { return myDex;}
     int GetVit() const {return myVit;}
@@ -27,9 +27,8 @@ public:
     const char* GetName() const { return myName; }
     
    
-    void TakeDamage(const int aDamage);
+    void TakeDamage(int aDamage);
     void SetName();
-    void TestName();
     bool GetIsAlive(){return myIsAlive;}
 
 private:

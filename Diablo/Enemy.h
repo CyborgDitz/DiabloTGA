@@ -4,25 +4,28 @@
 class Enemy
 {
 public:
-    Enemy(const int aMaxHealth, int aMyAtk, const char* aName)
+    Enemy( const char* aName, const int aMaxHealth, int aMyAtk)
     {
+        strcpy_s(myName, aName);
         myMaxHealth = aMaxHealth;
         myHealth = myMaxHealth;
         myAtk = aMyAtk;
-        strcpy_s(myName, aName);
     }
 
     int GetHealth() const { return myHealth; }
     int MaxHealth() const { return myMaxHealth; }
-    int GetDamage() const { return myAtk; }
+    int GetAtk() const { return myAtk; }
     bool GetIsAlive() const { return myIsAlive; }
+    int GetDefense() const { return myDefense; }
     const char* GetName() const { return myName; }
     void TakeDamage(int aDamage);
+    void PrintStats() const;
 
 private:
     char myName[17] = {};
     int myMaxHealth{};
     int myHealth{};
     int myAtk{};
+    int myDefense{};
     bool myIsAlive = true;
 };

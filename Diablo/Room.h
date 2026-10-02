@@ -5,11 +5,11 @@
 class Room
 {
 public:
-    Room(const int aDoors, const int aEnemies, const char* aName)
+    Room(const char* aName, const int aDoorsAmount, const int aEnemies )
     {
-        myDoors = aDoors;
+        myName = aName;
+        myDoorsAmount = aDoorsAmount;
         myEnemies = aEnemies;
-        myName[17] = *aName;
         if (myEnemies > 0)
         {
             myHasEnemies = true;
@@ -19,30 +19,32 @@ public:
     enum class RoomState
     {
         Exit =0,
-        Explore = 1,
+        Open_Door =1,
         Combat = 2,
-        Print_Stats = 3,
-        Open_Door =4,
+        Explore = 3,
+        Print_Stats = 4,
         Count = 5,
     };
     
+   int GetStateLength () const { return myStateLength; }
     const char* GetName() const { return myName; }
-    int getDoorAmount() const { return myDoors; }
-    int getEnemiesAmount() const { return myEnemies; }
-    void PrintStats() const;
-    void EnterRoom(const Player& aPlayer);
-   
+    int GetDoorAmount() const { return myDoorsAmount; }
+    int GetEnemiesAmount() const { return myEnemies; }
+    void ExploreRoom() const;
+    void PrintEnterRoom(const Player& aPlayer) const;
+    void RoomMenuChoices(const Player& aPlayer) const;
+
     RoomState& GetRoomState()  { return myState; }
-    
-    void SetDoors(const int aDoors) { myDoors = aDoors; }
-    void SetState();
+    void SetRoomState(const RoomState& aState){myState = aState;}
+    void SetDoors(const int aDoors) { myDoorsAmount = aDoors; }
+    //void SetState();
 
 private:
-    int myRoomID {};
-    int myDoors = 2;
+    int myDoorsAmount = 2;
     int myEnemies {};
-    char myName[17] = "Room";
+    const char* myName = "Room";
+    const int myStateMin = static_cast<int>(RoomState::Exit);
+    const int myStateLength = static_cast<int>(RoomState::Count);
     bool myHasEnemies = false;
-  
     RoomState myState = RoomState::Explore;
 };

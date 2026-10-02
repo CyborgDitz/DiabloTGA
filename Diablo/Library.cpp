@@ -11,22 +11,25 @@ namespace Library
             {
                 std::cout << "Choice: " << std::endl;
                 std::cin >> inputInt;
-                if (std::cin.fail())
+                if (std::cin.fail() )
                 {
                     std::cin.clear();
                     std::cin.ignore(1000, '\n');
+                    std::cout << "Please enter a number between " << inputMin << " and " << inputMax << std::endl;
                 }
                 else if (inputMin <= inputInt && inputInt <= inputMax)
                 {
-                    break;
+                    return inputInt;
+                }
+                else
+                {
+                    std::cout << "Please enter a number between " << inputMin << " and " << inputMax << std::endl;
                 }
             }
-            return inputInt;
         };
 
         void SayRoomMenu()
         {
-            std::cout << "I am in the main menu saying the dungoeon name" << std::endl;
             std::cout << "These are the choices" << std::endl;
             std::cout << "1: Explore\t 2: Attack the Monsters!\t 3: See your stats\t 4: Open Door " << std::endl;
         }

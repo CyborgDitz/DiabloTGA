@@ -3,16 +3,11 @@
 #include <ostream>
 #include "Library.h"
 
-void GameManager::PrintEnemyStats(Enemy* aEnemy)
+void GameManager::PrintEnemyStats(Enemy* aEnemyType)
 {
     {
-        std::cout << "SIX SEEVEEEEN" << aEnemy << std::endl;
+        std::cout << "SIX SEEVEEEEN" << aEnemyType << std::endl;
     }
-}
-
-void GameManager::PrintStats(Room* aRoom)
-{
-    std::cout << "myRoom0 stats yo" << aRoom << std::endl;
 }
 
 void GameManager::EnterMainMenu(Player& aPlayer)
@@ -26,6 +21,29 @@ void GameManager::EnterMainMenu(Player& aPlayer)
         }
     }
 }
+void GameManager::PopulateRooms(std::vector<Room>& aRooms)
+{
+    aRooms.push_back(myRoom0);
+    aRooms.push_back(myRoom1);
+    aRooms.push_back(myRoom2);
+    std::cout<< "debug There are " << aRooms.size() << " rooms" << std::endl; 
+}
+void GameManager::PopulateDoors(std::vector<Door>& aDoors)
+{
+    aDoors.push_back(myDoor0);
+    aDoors.push_back(myDoor1);
+    aDoors.push_back(myDoor2);
+
+    std::cout<< "debug There are " << aDoors.size() << " doors" << std::endl; 
+}
+void GameManager::PopulateEnemies(std::vector<Enemy>& aPopulation, Enemy& aEnemyType, Room& aRoom)
+{
+    int enemiesAmount = aRoom.GetEnemiesAmount();
+    for (int i = 0; i < enemiesAmount; i++)
+    {
+        aPopulation.push_back(aEnemyType);
+    }
+}
 
 void GameManager::SetMainState()
 {
@@ -34,81 +52,95 @@ void GameManager::SetMainState()
     myState = static_cast<MainState>(choice);
 }
 
+void GameManager::GameCombat()
+{
+    while (myPlayer.GetIsAlive() && !myPopulation.empty())
+    {
+        std::cout << "pick a target " << std::endl;
+        for (int i = 0; i < myPopulation.size(); i++)
+        {std::cout <<" Enemy target:" << i+1 << std::endl;
+            myPopulation[i].PrintStats();
+        }
+       const int target = Library::SetInput(1, myPopulation.size())-1;
+        myPopulation[target].TakeDamage(myPlayer.GetAtk());
+
+        if (myPopulation[target].GetIsAlive() == false)
+        {
+            myPopulation.erase(myPopulation.begin() + target);
+        }
+        for (int i = 0; i < myPopulation.size(); i++)
+        {
+            myPlayer.TakeDamage(myPopulation[i].GetAtk());
+        }
+        // myPlayer.TakeDamage(enemy.GetAtk());
+    }
+}
+void GameManager::EnterDoor(std::vector<Door>& aDoors)
+{
+    int input =  Library::SetInput(1, aDoors.size())-1;
+    std::cout << "debug get dc from doors " << aDoors[0].GetDC() << std::endl;
+}
+void GameManager::PickDoor()
+{
+    int input =  Library::SetInput(1, myDoors.size())-1;
+    if (input ==1)
+    {
+   
+    }
+    else if (input ==2)
+    {
+        
+    }
+    std::cout << "debug get dc from doors " << myDoors[input].GetNextRoom().GetName() << std::endl;
+    Room* room = &myDoors[input].GetNextRoom();
+    std::cout << "debug get dc from doors " << myDoors[input].GetDC() << std::endl;
+}
 void GameManager::PlayGame()
 {
+    
+    EnterDoor(myDoors);
+    PickDoor(myDoors);
+    system("pause");
     bool isMenu = true; //mainstate enum menu
-    myPlayer.SetName();
-
-    while (GetMainState() != GameManager::MainState::Exit && isMenu && myPlayer.GetIsAlive())
+    Room* room = &myDoor0.GetNexRoom(myRoom0);
+    while (GetMainState() != MainState::Exit && isMenu && myPlayer.GetIsAlive())
     {
-        EnterMainMenu(myPlayer);
+        EnterMainMenu(myPlayer); //TODO below func in mainmenu?
         SetGameState(static_cast<MainState>(Library::SetInput(0,5)));
-        while (myPlayer.GetIsAlive() && isMenu)
+        while (myPlayer.GetIsAlive() && isMenu) //TODO could be func?
         {
-            if (GetMainState() == GameManager::MainState::Exit)
+            if (GetMainState() == MainState::Exit)
             {
                 std::cout << "I am main menu choices func  ending the game" << std::endl;
             }
-            else if (GetMainState() == GameManager::MainState::Play)
-            {
+            else if (GetMainState() == MainState::Play)
+            {   
+                int input =  Library::SetInput(1, myRooms.size())-1;
+                std::cout << "Choose a room to test: 1, 2, 3" << std::endl;
+               if (input ==1)
                 {
-                    //room 0
-                    myRoom0.EnterRoom(myPlayer);
-                    myRoom0.PrintStats();
-                    myRoom0.SetState();
+                   room = &myDoor0.GetNexRoom(myRoom0);
+                   PopulateEnemies(myPopulation, myEnemy0,  *room);
                 }
-
+                else if (input ==2)
                 {
-                    //room 1
-                    myRoom1.EnterRoom(myPlayer);
-                    myRoom1.PrintStats();
-                    myRoom1.SetState();
+                    room = &myDoor0.GetNexRoom(myRoom0);
+                    PopulateEnemies(myPopulation, myEnemy1,  *room);
                 }
-
+                else if (input ==3)
                 {
-                    myRoom2.EnterRoom(myPlayer);
-                    myRoom2.PrintStats();
-                    myRoom2.SetState();
+                    room = &myDoor0.GetNexRoom(myRoom0);
+                    PopulateEnemies(myPopulation, myEnemy2, *room);
                 }
-                Library::SayRoomMenu();
+                
                 {
-                    const Room::RoomState state = myRoom0.GetRoomState();
-                    if (state == Room::RoomState::Exit)
-                    {
-                        std::cout << "I am the ending the game cuz Im dead I guess" << std::endl;
-                    }
-                    else if (state == Room::RoomState::Explore)
-                    {
-                        std::cout << "I am in the myRoom0 menu saying whats inside it" << std::endl;
-                    }
-                    else if (state == Room::RoomState::Combat)
-                    {
-                        //combat!
-                        while (myPlayer.GetIsAlive() && myEnemies.size() > 0)
-                        {
-                            std::cout << "pick a target " << std::endl;
-
-                            int target = Library::SetInput(0, myEnemies.size());
-                            myEnemies[target].TakeDamage(myPlayer.GetIsAlive());
-
-                            if (myEnemies[target].GetIsAlive() == false)
-                            {
-                                myEnemies.erase(myEnemies.begin() + target);
-                            }
-                            for (int i = 0; i < myEnemies.size(); i++)
-                            {
-                                myPlayer.TakeDamage(myEnemies[i].GetDamage());
-                            }
-                            // myPlayer.TakeDamage(enemy.GetDamage());
-                        }
-                    }
-                    else if (GetMainState() == GameManager::MainState::Cheats_Menu)
-                    {
-                        std::cout << "I am in the main menu choices func saying the cheats" << std::endl;
-                    }
+                     //myDoor0.GetNexRoom(myRoom1).EnterRoom(myPlayer);
+                    room->ExploreRoom();
+                   room->RoomMenuChoices(myPlayer);
+                    //door->EnterDoor(room);
+                    GameCombat();
                 }
-
-
+                
                 system("pause");
                 std::cout << "I am outside of the room\n" << std::endl;
             }

@@ -4,16 +4,11 @@
 
 void Player::PrintStats() const
 {
-    // can I loop through my stats and print?
-    // for (int i = 0; i < 3; i++)
-    // {
-    //     std::cout << "My health is: " << std::endl;
-    // }
     std::cout << myName << "stats are : \n " <<
-        "Current Health: " << myHealth << '\t' <<
-        "Max Health: " << myMaxHealth << '\n' << 
-        "Attack damage: " << myAtk << '\t' <<  
-        "Defense: " << myDefense << '\n' <<
+        "HP: " << myHealth << '\t' <<
+        "MaxHP: " << myMaxHealth << '\n' << 
+        "Atk: " << myAtk << '\t' <<  
+        "Def: " << myDefense << '\n' << 
         "STR: " << myStr << '\t' <<
         "DEX: " << myDex << '\t' <<
         "VIT " << myVit << '\t' <<
@@ -25,8 +20,9 @@ void Player::TakeDamage(const int aDamage)
     const int myCurrentHealth = myHealth;
     myHealth -= aDamage;
     myHealth = std::max(myHealth, 0);
-    std::cout << myCurrentHealth << " takes " << aDamage << " and has " << myHealth <<  
-        " health left!" <<std::endl;
+    std::cout << "Player " << myName << " has currently " << myCurrentHealth << " health\n" <<
+       " and takes " << aDamage << ". Now has " << myHealth <<  
+           " health left!" <<std::endl;
     if (myHealth <= 0)
     {
         myIsAlive = false;
