@@ -62,7 +62,7 @@ public:
     void SetMainState();
     void GameCombat();
     void EnterDoor(std::vector<Door>& aDoors);
-    void PickDoor();
+    Room& PickDoor();
     void PlayGame();
 
 private:

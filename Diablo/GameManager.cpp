@@ -80,33 +80,30 @@ void GameManager::EnterDoor(std::vector<Door>& aDoors)
     int input =  Library::SetInput(1, aDoors.size())-1;
     std::cout << "debug get dc from doors " << aDoors[0].GetDC() << std::endl;
 }
-void GameManager::PickDoor()
+
+
+Room& GameManager::PickDoor()
 {
     int input =  Library::SetInput(1, myDoors.size())-1;
-    if (input ==1)
-    {
-   
-    }
-    else if (input ==2)
-    {
-        
-    }
-    std::cout << "debug get dc from doors " << myDoors[input].GetNextRoom().GetName() << std::endl;
-    Room* room = &myDoors[input].GetNextRoom();
+    std::cout << "I didnt go int" << myDoors[input].GetPrevRoom().GetName() << std::endl;
+    std::cout << "I am going into " << myDoors[input].GetNextRoom().GetName() << std::endl;
+    Room& room = myDoors[input].GetNextRoom();
     std::cout << "debug get dc from doors " << myDoors[input].GetDC() << std::endl;
+    return room;
 }
 void GameManager::PlayGame()
 {
     
     EnterDoor(myDoors);
-    PickDoor(myDoors);
+    PickDoor();
     system("pause");
     bool isMenu = true; //mainstate enum menu
-    Room* room = &myDoor0.GetNexRoom(myRoom0);
+    
     while (GetMainState() != MainState::Exit && isMenu && myPlayer.GetIsAlive())
     {
         EnterMainMenu(myPlayer); //TODO below func in mainmenu?
-        SetGameState(static_cast<MainState>(Library::SetInput(0,5)));
+        SetGameState(static_cast<MainState>(Library::SetInput(0,sizeof(MainState))));
+        
         while (myPlayer.GetIsAlive() && isMenu) //TODO could be func?
         {
             if (GetMainState() == MainState::Exit)
@@ -114,22 +111,23 @@ void GameManager::PlayGame()
                 std::cout << "I am main menu choices func  ending the game" << std::endl;
             }
             else if (GetMainState() == MainState::Play)
-            {   
-                int input =  Library::SetInput(1, myRooms.size())-1;
+            {
                 std::cout << "Choose a room to test: 1, 2, 3" << std::endl;
-               if (input ==1)
-                {
-                   room = &myDoor0.GetNexRoom(myRoom0);
+               Room* room = &PickDoor();
+                
+               if (room->GetName() == myRoom0.GetName())
+               {
+                  
                    PopulateEnemies(myPopulation, myEnemy0,  *room);
                 }
-                else if (input ==2)
+                else if (room->GetName() == myRoom1.GetName())
                 {
-                    room = &myDoor0.GetNexRoom(myRoom0);
+                   
                     PopulateEnemies(myPopulation, myEnemy1,  *room);
                 }
-                else if (input ==3)
+                else if (room->GetName() ==myRoom2.GetName())
                 {
-                    room = &myDoor0.GetNexRoom(myRoom0);
+                   
                     PopulateEnemies(myPopulation, myEnemy2, *room);
                 }
                 
@@ -140,7 +138,7 @@ void GameManager::PlayGame()
                     //door->EnterDoor(room);
                     GameCombat();
                 }
-                
+              
                 system("pause");
                 std::cout << "I am outside of the room\n" << std::endl;
             }

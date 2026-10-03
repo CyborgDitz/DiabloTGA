@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <ostream>
+#include <vector>
 
 void Door::LockPick(const int aPlayerAttribute)
 {
@@ -28,19 +29,19 @@ void Door::Bash(const int aPlayerAttribute)
     }
 }
 
-// Room& Door::GetNexRoom(const Room& aFromRoom) const
-// {
-//     if (aFromRoom.GetName() == myPrevRoom.GetName())
-//     {
-//         std::cout << "Door exited! " << myPrevRoom.GetName() << std::endl;
-//         std::cout << "Door entered! " << myNextRoom.GetName() << std::endl;
-//         return myNextRoom;
-//     }
-//     else
-//     {
-//         std::cout << "Door entered! " << myNextRoom.GetName() << std::endl;
-//         std::cout << "Door exited! " << myPrevRoom.GetName() << std::endl;
-//         return myPrevRoom;
-//     }
-//     
-// }
+void Door::MoveToRoom(std::vector<Room> aRooms, const Room& aFromRoom) const
+{
+    if (aFromRoom.GetName() == myPrevRoom.GetName())
+    {
+        std::cout << "Door exited! " << myPrevRoom.GetName() << std::endl;
+        
+        std::cout << "Door entered! " << myNextRoom.GetName() << std::endl;
+        
+    }
+    else
+    {
+        std::cout << "Door entered! " << myNextRoom.GetName() << std::endl;
+        std::cout << "Door exited! " << myPrevRoom.GetName() << std::endl;
+    }
+    
+}
