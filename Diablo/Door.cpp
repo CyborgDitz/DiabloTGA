@@ -4,6 +4,8 @@
 #include <ostream>
 #include <vector>
 
+#include "Library.h"
+
 void Door::LockPick(const int aPlayerAttribute)
 {
     if (aPlayerAttribute > myDC )
@@ -15,6 +17,15 @@ void Door::LockPick(const int aPlayerAttribute)
     {
         std::cout << "The lock is stll closed!" << std::endl;
     }
+}
+Room& Door::PickDoor(std::vector<Door> aDoors)
+{
+    const int input =  Library::SetInput(1, aDoors.size())-1;
+    std::cout << "I didnt go int" << aDoors[input].GetPrevRoom().GetName() << std::endl;
+    std::cout << "I am going into " << aDoors[input].GetNextRoom().GetName() << std::endl;
+    Room& room = aDoors[input].GetNextRoom();
+    std::cout << "debug get dc from doors " << aDoors[input].GetDC() << std::endl;
+    return room;
 }
 void Door::Bash(const int aPlayerAttribute)
 {

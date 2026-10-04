@@ -25,8 +25,11 @@ public:
     int GetCarryCap() const {return myCarryCap;}
     int GetDefense() const {return myDefense;}
     const char* GetName() const { return myName; }
+    bool GetInfinite() const {return hasInfinite;}
+    bool GetGodMode() const {return hasGodMode;}
     
-   
+   void SetInfinite(bool aBool) {hasInfinite = aBool;}
+    void SetGodMode(bool aBool){hasGodMode = aBool;}
     void TakeDamage(int aDamage);
     void SetName();
     bool GetIsAlive(){return myIsAlive;}
@@ -43,5 +46,8 @@ private:
     int myMaxHealth{};
     int myCarryCap{};
     int myDefense{};
+  
     bool myIsAlive = true;
+    bool hasGodMode = false;
+    bool hasInfinite = false;
 };

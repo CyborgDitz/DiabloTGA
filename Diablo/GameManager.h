@@ -1,5 +1,7 @@
 ﻿#pragma once
 #include <vector>
+
+#include "Cheats.h"
 #include "Door.h"
 #include "Enemy.h"
 #include "Player.h"
@@ -23,18 +25,19 @@ public:
         Main_Menu = 3,
         Count = 4
     };
-    enum class Cheats
+    enum class CheatState
     {
-        None = 0,
-        Cheats_Infinite_DPS = 1,
-        Cheats_GodMode = 2,
-        Cheats_Both = 3,
-        Count = 4
-    };
+        Exit = 0,
+         Infinite_DPS = 1,
+         GodMode = 2,
+         BothCheats = 3,
+         NoCheats = 4,
+        Count = 5
+     };
 
     Player& GetPlayer() {return myPlayer;}
-    MainState& GetMainState() {return myState;}
-    Cheats& GetCheats()  {return myCheats;}
+    MainState& GetMainState() {return myMainState;}
+   
     Room& GetRoom0() {return myRoom0;}
     Room& GetRoom1() {return myRoom1;}
     Room& GetRoom2() {return myRoom2;}
@@ -52,13 +55,14 @@ public:
 
  
     void PrintEnemyStats(Enemy* aEnemyType); // todo in class
-    void EnterMainMenu(Player& aPlayer); // todo in class
+    void PrintMainMenuChoices(Player& aPlayer); // todo in class
     void PopulateRooms(std::vector<Room>& aRooms);
-    void SetGameState(const MainState& aMainState){myState = aMainState; }
+    void SetGameState(const MainState& aMainState){myMainState = aMainState; }
     
     void PopulateEnemies(std::vector<Enemy>& aPopulation, Enemy& aEnemyType, Room& aRoom);
     void PopulateDoors(std::vector<Door>& aDoors);
-
+    
+    void SetCheatState(Player& aPlayer);
     void SetMainState();
     void GameCombat();
     void EnterDoor(std::vector<Door>& aDoors);
@@ -67,18 +71,22 @@ public:
 
 private:
     
-    MainState myState = MainState::Main_Menu;
+    MainState myMainState = MainState::Main_Menu;
+  CheatState myCheatState = CheatState::Count;
     Player myPlayer{6,6,6};
+    
     Enemy myEnemy0{"BobsterMonster",1,1, };
     Enemy myEnemy1{"Big Blob",1, 2,};
     Enemy myEnemy2 {"Diablob", 666,666,};
+    
     Room myRoom0{"Pit", 2,1,};
     Room myRoom1{("Shower"),2,2,};
     Room myRoom2{"Ballgame Park", 2,1,};
-    Cheats myCheats {};
+    
     Door myDoor0 {myRoom1,myRoom2, 30, true};
     Door myDoor1 {myRoom2,myRoom0, 20, true};
     Door myDoor2 {myRoom0,myRoom1, 0, false};
+    
     std::vector<Enemy> myPopulation;
     std::vector<Room> myRooms;
     std::vector<Door> myDoors; 

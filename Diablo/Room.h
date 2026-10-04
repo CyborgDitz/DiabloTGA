@@ -25,6 +25,7 @@ public:
         Print_Stats = 4,
         Count = 5,
     };
+    
    int GetStateLength () const { return myStateLength; }
     const char* GetName() const { return myName; }
     int GetDoorAmount() const { return myDoorsAmount; }
@@ -36,6 +37,7 @@ public:
     RoomState& GetRoomState()  { return myState; }
     void SetRoomState(const RoomState& aState){myState = aState;}
     void SetDoors(const int aDoors) { myDoorsAmount = aDoors; }
+    
     //void SetState();
 
 private:
