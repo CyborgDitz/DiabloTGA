@@ -19,10 +19,10 @@ public:
     enum class RoomState
     {
         Exit =0,
-        Open_Door =1,
+        OpenDoor =1,
         Combat = 2,
         Explore = 3,
-        Print_Stats = 4,
+        PrintStats = 4,
         Count = 5,
     };
     
@@ -33,6 +33,7 @@ public:
     void ExploreRoom() const;
     void PrintEnterRoom(const Player& aPlayer) const;
     void RoomMenuChoices(const Player& aPlayer) const;
+    
 
     RoomState& GetRoomState()  { return myState; }
     void SetRoomState(const RoomState& aState){myState = aState;}

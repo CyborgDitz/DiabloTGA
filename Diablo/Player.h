@@ -31,13 +31,13 @@ public:
    void SetInfinite(bool aBool) {hasInfinite = aBool;}
     void SetGodMode(bool aBool){hasGodMode = aBool;}
     void TakeDamage(int aDamage);
-    void SetName();
+    // void SetName();
     bool GetIsAlive(){return myIsAlive;}
 
 private:
     
   //  const char* myName[17] = {}; not MVP
-    char myName[17] = {};
+    char myName[17] = "Bob";
     int myStr{};
     int myDex{};
     int myVit{};

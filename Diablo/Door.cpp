@@ -18,14 +18,51 @@ void Door::LockPick(const int aPlayerAttribute)
         std::cout << "The lock is stll closed!" << std::endl;
     }
 }
-Room& Door::PickDoor(std::vector<Door> aDoors)
+Room& Door::PickDoor(std::vector<Door> aDoors,Player& aPlayer)
 {
     const int input =  Library::SetInput(1, aDoors.size())-1;
     std::cout << "I didnt go int" << aDoors[input].GetPrevRoom().GetName() << std::endl;
     std::cout << "I am going into " << aDoors[input].GetNextRoom().GetName() << std::endl;
     Room& room = aDoors[input].GetNextRoom();
     std::cout << "debug get dc from doors " << aDoors[input].GetDC() << std::endl;
+ 
     return room;
+}
+void Door::UnlockDoor(Player& aPlayer)
+{
+    if (GetIsLocked() == true)
+    {
+        std::cout << "Door is locked!" << std::endl;
+        std::cout << "lock dc  " << GetDC() << std::endl;
+   
+        const int min = 1;
+        const int max =2;
+        while (myIsLocked == true)
+        { 
+            std::cout << "Do you want to unlock the door with 1: Bash, 2: Picklock, or 3: leave!" << std::endl;
+            const Unlock input =static_cast<Unlock>(Library::SetInput(min ,max));
+            if (input == Unlock::Bash)
+            {
+                Bash(aPlayer.GetStr());
+            }
+            else if (input == Unlock::Picklock)
+            {
+                LockPick(aPlayer.GetDex());
+            }
+            else if (input == Unlock::Exit)
+            {
+                std::cout << "Ill try another door!" << std::endl;
+                return;
+            }
+            else
+            {
+                std::cout << "Door is unlocked!" << std::endl;
+                return;
+            }
+            
+        
+        }
+    }
 }
 void Door::Bash(const int aPlayerAttribute)
 {
@@ -40,7 +77,7 @@ void Door::Bash(const int aPlayerAttribute)
     }
 }
 
-void Door::MoveToRoom(std::vector<Room> aRooms, const Room& aFromRoom) const
+void Door::MoveToRoom( const Room& aFromRoom) const
 {
     if (aFromRoom.GetName() == myPrevRoom.GetName())
     {

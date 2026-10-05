@@ -15,8 +15,7 @@ void Enemy::TakeDamage(const int aDamage)
     if (myHealth <= 0)
     {
         myIsAlive = false;
-        std::cout << myName << " is dead and removed from vector or something" << std::endl;
-        system("pause");
+        std::cout << myName << " is dead and removed from vector or something \n " << std::endl;
         return;
     }
     std::cout << "It is still standing!" << std::endl;

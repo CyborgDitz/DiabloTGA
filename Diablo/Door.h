@@ -13,12 +13,21 @@ public:
         myDC = aDC;
         myIsLocked = aIsLocked;
     }
+    enum class Unlock
+    {
+        Exit = 0,
+        Bash =1,
+        Picklock =2,
+        Count = 3
+    };
 
     int GetDC(){return myDC;}
     void LockPick(int aPlayerAttribute);
-    Room& PickDoor(std::vector<Door> aDoors);
+    bool GetIsLocked() const {return myIsLocked;}
+    Room& PickDoor(std::vector<Door> aDoors, Player& aPlayer);
+    void UnlockDoor(Player& aPlayer);
     void Bash(int aPlayerAttribute);
-    void MoveToRoom(std::vector<Room> aRooms, const Room& aFromRoom) const;
+    void MoveToRoom(const Room& aFromRoom) const;
     Room& GetPrevRoom(){return myPrevRoom;}
     Room& GetNextRoom(){return myNextRoom;}
     
