@@ -206,6 +206,7 @@ void GameManager::SetCheatState(Player& aPlayer)
                 {
                     std::cout << "You have no cheats" << std::endl;
                 }
+                break;
             }
         case CheatState::Count:
         default:
@@ -286,8 +287,6 @@ void GameManager::PlayGame()
                             std::cout << "Door is unlocked!" << std::endl;
                         }
                     }
-                  
-                
                 }
                 break;
             }

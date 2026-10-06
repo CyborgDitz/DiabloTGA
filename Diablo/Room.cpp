@@ -34,25 +34,37 @@ void Room::RoomMenuChoices(const Player& aPlayer) const
         const RoomState& input = static_cast<RoomState>(Library::SetInput(0, myStateLength));
         const RoomState& state = (input);
         //call from room like print etc
-        if (state == RoomState::Explore)
+       switch (state)
         {
-            ExploreRoom();
-       
+        case RoomState::Exit:
+            break;
+        case RoomState::OpenDoor:
+            {
+                std::cout << "I am opening the doors" << std::endl;
+                
+                return;
+            }
+        case RoomState::Combat:
+            {
+                std::cout << "I am fighting" << std::endl;
+                break;
+            }
+        case RoomState::Explore:
+            {
+                break;
+            }
+        case RoomState::PrintStats:
+            {
+                aPlayer.PrintStats();
+                break;
+            }
+        case RoomState::Count:
+        default:
+            {
+                break;
+            }
         }
-        else if (state == RoomState::Combat)
-        {
-            std::cout << "I am fighting" << std::endl;
-        }
-        else if (state == RoomState::PrintStats)
-        {
-            aPlayer.PrintStats();
-        }
-        else if (state == RoomState::OpenDoor)
-        {
-            
-            std::cout << "I am opening the doors" << std::endl;
-            return;
-        }
+   
     }
     
 }
