@@ -15,8 +15,8 @@ public:
         //myPlayer.SetName();
         PopulateRooms(myRooms);
         PopulateDoors(myDoors);
-        myCurrentRoom = &myRoom0;
-        myCurrentDoor = &myDoor0;
+        myCurrentRoom = &myRooms[0];
+        myCurrentDoor = &myDoors[0];
     }
     enum class MainState
     {
@@ -35,6 +35,15 @@ public:
          SayCheats = 4,
         Count = 5
      };
+    enum class RoomState
+    {
+        Exit =0,
+        OpenDoor =1,
+        Combat = 2,
+        Explore = 3,
+        PrintStats = 4,
+        Count = 5,
+    };
 
     Player& GetPlayer() {return myPlayer;}
     MainState& GetMainState() {return myMainState;}
@@ -60,17 +69,25 @@ public:
     void PopulateDoors(std::vector<Door>& aDoors);
     void SetRoom();
 
-    void SetCheatState(Player& aPlayer);
+    void SetCheatState(Player& aPlayer);;
+    void RoomLoop();
     void SetMainState();
     void GameCombat();
     // void EnterDoor(std::vector<Door>& aDoors);
     void ChooseDoor();
+    void PopulateRoom();
     void PlayGame();
+    void RoomMenuChoices() ;
+    bool isEnemiesHere() const;
 
+    RoomState& GetRoomState()  { return myRoomState; }
+    void SetRoomState(const RoomState& aState){myRoomState = aState;}
+    
 private:
     
     MainState myMainState = MainState::Menu;
-  CheatState myCheatState = CheatState::Count;
+    CheatState myCheatState = CheatState::Count;
+    RoomState myRoomState = RoomState::Explore;
     Player myPlayer{6,6,6};
     Room* myCurrentRoom;
     Door* myCurrentDoor;

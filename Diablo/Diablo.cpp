@@ -2,7 +2,7 @@
 
 #include "GameManager.h"
 
-int main(int argc, char* argv[])
+int main()
 {   
   GameManager game;
     game.PlayGame();
