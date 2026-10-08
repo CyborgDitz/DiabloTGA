@@ -24,8 +24,8 @@ public:
     int GetDC(){return myDC;}
     void LockPick(int aPlayerAttribute);
     bool GetIsLocked() const {return myIsLocked;}
-    Room& PickDoor(std::vector<Door> aDoors, Player& aPlayer);
-    void UnlockDoor(Player& aPlayer);
+    Room& PickDoor(std::vector<Door>& aDoors);
+    void UnlockDoor(const Player& aPlayer);
     void Bash(int aPlayerAttribute);
     void MoveToRoom(const Room& aFromRoom) const;
     Room& GetPrevRoom(){return myPrevRoom;}

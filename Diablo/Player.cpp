@@ -17,12 +17,18 @@ void Player::PrintStats() const
 void Player::TakeDamage(const int aDamage)
 {
     //todo same func for monster and myPlayer
+    if (hasGodMode == true)
+    {
+        std::cout << "I am a god! " << std::endl;
+        return;
+    }
     const int myCurrentHealth = myHealth;
     myHealth -= aDamage;
     myHealth = std::max(myHealth, 0);
     std::cout << "Player " << myName << " has currently " << myCurrentHealth << " health\n" <<
        " and takes " << aDamage << ". Now has " << myHealth <<  
            " health left!" <<std::endl;
+    
     if (myHealth <= 0)
     {
         myIsAlive = false;
@@ -30,6 +36,6 @@ void Player::TakeDamage(const int aDamage)
         system("pause");
         return;
     }
-    std::cout << "It is still standing!" << std::endl;
+    std::cout << "I am still standing!" << std::endl;
 }
 

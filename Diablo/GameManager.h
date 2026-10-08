@@ -4,6 +4,7 @@
 #include "Cheats.h"
 #include "Door.h"
 #include "Enemy.h"
+#include "Item.h"
 #include "Player.h"
 #include "Room.h"
 #include "Library.h"
@@ -44,6 +45,7 @@ public:
         PrintStats = 4,
         Count = 5,
     };
+  
 
     Player& GetPlayer() {return myPlayer;}
     MainState& GetMainState() {return myMainState;}
@@ -70,14 +72,15 @@ public:
     void SetRoom();
 
     void SetCheatState(Player& aPlayer);;
-    void RoomLoop();
+    void StartRoomLoop();
     void SetMainState();
     void GameCombat();
+    
     // void EnterDoor(std::vector<Door>& aDoors);
     void ChooseDoor();
     void PopulateRoom();
     void PlayGame();
-    void RoomMenuChoices() ;
+    void SelectRoomMenuChoices() ;
     bool isEnemiesHere() const;
 
     RoomState& GetRoomState()  { return myRoomState; }
@@ -88,7 +91,7 @@ private:
     MainState myMainState = MainState::Menu;
     CheatState myCheatState = CheatState::Count;
     RoomState myRoomState = RoomState::Explore;
-    Player myPlayer{6,6,6};
+    Player myPlayer{10,11,12};
     Room* myCurrentRoom;
     Door* myCurrentDoor;
     
@@ -97,19 +100,20 @@ private:
     Enemy myEnemy1{"Big Blob",1, 2,};
     Enemy myEnemy2 {"Diablob", 666,666,};
     
-    Room myRoom0{"Pit", 2,2,};
-    Room myRoom1{("Shower"),2,0,};
-    Room myRoom2{"Ballgame Park", 2,1,};
+    Room myRoom0{"Pit", 2,2, true};
+    Room myRoom1{("Shower"),2,0, true};
+    Room myRoom2{"Ballgame Park", 2,1, true};
     
-    Door myDoor0 {myRoom2,myRoom1, 5, true};
-    Door myDoor1 {myRoom1,myRoom2, 20, false};
+    Door myDoor0 {myRoom2,myRoom1, 10, true};
+    Door myDoor1 {myRoom1,myRoom2, 10, true};
     Door myDoor2 {myRoom2,myRoom0, 0, false};
     
+    Item myItem0 {"Bonk Hammer", 5, 1,2};
     
     std::vector<Enemy> myPopulation;
     std::vector<Room> myRooms;
     std::vector<Door> myDoors; 
-    
+    std::vector<Item> myItems;
    
     // todo vectors later
     // std::vector<Room> myRoom0s;

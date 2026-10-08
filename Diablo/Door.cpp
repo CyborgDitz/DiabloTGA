@@ -18,7 +18,7 @@ void Door::LockPick(const int aPlayerAttribute)
         std::cout << "The lock is stll closed!" << std::endl;
     }
 }
-Room& Door::PickDoor(std::vector<Door> aDoors,Player& aPlayer)
+Room& Door::PickDoor(std::vector<Door>& aDoors)
 {
     const int input =  Library::SetInput(1, aDoors.size())-1;
     std::cout << "I didnt go int" << aDoors[input].GetPrevRoom().GetName() << std::endl;
@@ -28,9 +28,9 @@ Room& Door::PickDoor(std::vector<Door> aDoors,Player& aPlayer)
  
     return room;
 }
-void Door::UnlockDoor(Player& aPlayer)
+void Door::UnlockDoor(const Player& aPlayer)
 {
-    if (GetIsLocked() == true)
+    if (myIsLocked == true)
     {
         std::cout << "Door is locked!" << std::endl;
         std::cout << "lock dc  " << GetDC() << std::endl;
@@ -66,7 +66,7 @@ void Door::UnlockDoor(Player& aPlayer)
 }
 void Door::Bash(const int aPlayerAttribute)
 {
-    if (aPlayerAttribute > myDC )
+    if (aPlayerAttribute >= myDC )
     {
         std::cout << "The lock is bashed broken!" << std::endl; 
         myIsLocked = false;

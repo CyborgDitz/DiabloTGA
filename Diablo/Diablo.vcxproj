@@ -159,12 +159,14 @@
     <ClCompile Include="Door.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="GameManager.cpp" />
+    <ClCompile Include="Item.cpp" />
     <ClCompile Include="Library.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Room.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cheats.h" />
+    <ClInclude Include="Item.h" />
     <ClInclude Include="Library.h" />
     <ClInclude Include="Door.h" />
     <ClInclude Include="Enemy.h" />

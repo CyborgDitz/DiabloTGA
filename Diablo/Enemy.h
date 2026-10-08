@@ -4,7 +4,7 @@
 class Enemy
 {
 public:
-    Enemy( const char* aName, const int aMaxHealth, int aMyAtk)
+    Enemy( const char* aName, const int aMaxHealth, const int aMyAtk)
     {
         strcpy_s(myName, aName);
         myMaxHealth = aMaxHealth;
