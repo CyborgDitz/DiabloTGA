@@ -31,6 +31,6 @@ namespace Library
         void SayRoomMenu()
         {
             std::cout << "These are the choices" << std::endl;
-            std::cout << "1: Explore\t 2: Attack the Monsters!\t 3: See your stats\t 4: Open Door " << std::endl;
+            std::cout << "1: Explore\t 2: Attack the Monsters!\t 3: Open Door\t 4: Cast spells! 5: See your stats\t" << std::endl;
         }
     }

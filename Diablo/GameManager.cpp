@@ -32,6 +32,14 @@ void GameManager::PopulateDoors(std::vector<Door>& aDoors)
     //std::cout<< "debug There are " << aDoors.size() << " doors" << std::endl; 
 }
 
+void GameManager::PopulateSpells(std::vector<Spell>& aSpells)
+{
+    aSpells.push_back(mySpell0);
+    aSpells.push_back(mySpell1);
+    aSpells.push_back(mySpell2);
+
+    //std::cout<< "debug There are " << aDoors.size() << " doors" << std::endl; 
+}
 void GameManager::PopulateEnemies(std::vector<Enemy>& aPopulation, Enemy& aEnemyType, Room& aRoom)
 {
     int enemiesAmount = aRoom.GetEnemiesAmount();
@@ -197,8 +205,8 @@ bool GameManager::isEnemiesHere() const
 void GameManager::SelectRoomMenuChoices()
 {
     {
-        std::cout << "1: Open Door \t 2: Fight Monsters!\t 3:Explore Room\n" <<
-            " 4: See your stats" << std::endl;
+        std::cout << "These are the choices" << std::endl;
+        std::cout << "1: Open Door\t 2: Attack the Monsters!\t 3: Cast spells!\t 4: Explore The Room and Loot\t  5: See your stats\t" << std::endl;
         const int minInput = static_cast<int>(CheatState::Exit);
         const int maxInput = static_cast<int>(CheatState::Count);
         const int input = Library::SetInput(minInput, maxInput);
@@ -226,12 +234,18 @@ void GameManager::PopulateRoom()
 
 void GameManager::GameCombat()
 {
+    
     while (myPlayer.GetIsAlive() && myPopulation.empty() == false)
     {
         for (int i = 0; i < myPopulation.size(); i++)
         {
             std::cout << " Enemy target:" << i + 1 << std::endl;
             myPopulation[i].PrintStats();
+        }
+        //player turn
+        if (myCurrentRoom->GetHasSpell() == true)
+        {
+            Cast
         }
         std::cout << "pick a target " << std::endl;
         const int target = Library::SetInput(1, myPopulation.size()) - 1;
@@ -294,11 +308,31 @@ void GameManager::StartRoomLoop()
                     }
                     break;
                 }
+            case RoomState::CastMagic:
+                {
+                    break;
+                }
             case RoomState::Explore :
                 {
-                    std::cout << "There is an item! I take it" << std::endl;
-                    PickupItem();
-                    myCurrentRoom->PrintRoomData(&myPopulation);
+                   
+                   
+                    if (myCurrentRoom->GetHasChest()== true && myCurrentRoom->GetHasItems() == true )
+                    {
+                        std::cout << "I found an item in the chest!" << std::endl;
+                        myCurrentRoom->SetHasChest(false);
+                       
+                    }
+                    else if (myCurrentRoom->GetHasItems() == true)
+                    {
+                        std::cout << "I found an item on the floor!" << std::endl;
+                    }
+                    else
+                    {
+                        std::cout << "There is nothing here..." << std::endl;
+                        return;
+                    }
+                    myCurrentRoom->SetHasItems(false);
+                    myPlayer.PopulateInventory(myCurrentRoom->GetItem());
                     break;
                 }
             case RoomState::PrintStats :
@@ -316,16 +350,28 @@ void GameManager::StartRoomLoop()
     }
 }
 
-void GameManager::PickupItem()
+void GameManager::RemoveFromSpells(Spell& aSpell)
 {
-    Item& theItem = myCurrentRoom->GetItem();
-    myPlayer.PopulateInventory(theItem);
+    if (mySpells.empty()==true)
+    {
+        std::cout << "There is no power in the room!" << std::endl;
+        return;
+    }
+    
+    for (int i = 0; i < mySpells.size(); i++)
+    { 
+       
+        bool removeItem = strcmp(mySpells[i].GetName(), aSpell.GetName()) == 0;
+        if (removeItem)
+        {
+            std::cout << "I removed spell " << aSpell.GetName() << " from the spellbook" << std::endl;
+            mySpells.erase(mySpells.begin() + i);
+        }
+    }
 }
-
 void GameManager::PlayGame()
 {
-    // //testing place
-  
+
     while (myMainState != MainState::Exit && myPlayer.GetIsAlive())
     {
         PrintMainMenuChoices(myPlayer); //TODO below func in mainmenu?

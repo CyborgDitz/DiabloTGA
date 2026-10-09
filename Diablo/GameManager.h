@@ -18,6 +18,7 @@ public:
         //myPlayer.SetName();
         PopulateRooms(myRooms);
         PopulateDoors(myDoors);
+        PopulateSpells(mySpells);
         myCurrentRoom = &myRooms[0];
         myCurrentDoor = &myDoors[0];
     }
@@ -43,9 +44,10 @@ public:
         Exit =0,
         OpenDoor =1,
         Combat = 2,
-        Explore = 3,
-        PrintStats = 4,
-        Count = 5,
+        CastMagic = 3,
+        Explore = 4,
+        PrintStats = 5,
+        Count = 6,
     };
   
 
@@ -65,15 +67,19 @@ public:
     
     void PlayGame();
     void StartRoomLoop();
-    void SelectRoomMenuChoices() ;
+    void RemoveFromSpells(Spell& aSpell);
+    void SelectRoomMenuChoices();
     void SetCheatState(Player& aPlayer);
     void GameCombat();
     void ChooseDoor();
     void PopulateRoom();
     void PopulateEnemies(std::vector<Enemy>& aPopulation, Enemy& aEnemyType, Room& aRoom);
     void PopulateDoors(std::vector<Door>& aDoors);
+    void PopulateSpells(std::vector<Spell>& aSpells);
     void PrintMainMenuChoices(Player& aPlayer);
     bool isEnemiesHere() const;
+    
+    
 
     RoomState& GetRoomState()  { return myRoomState; }
     void SetRoomState(const RoomState& aState){myRoomState = aState;}
@@ -86,6 +92,7 @@ private:
     Player myPlayer{10,11,12};
     Room* myCurrentRoom;
     Door* myCurrentDoor;
+  Spell* myCurrentSpell;
     
     
     
@@ -102,20 +109,18 @@ private:
     Item myItem2 {"The Horn of Doom and Slimery", -100, -100};
     
     
-    // Chest myChest0 {"Sticky Chest", true, false, myItem0};  
-    // Chest myChest1 {"Sticky Chest", true, false, myItem1};
-    // Chest myChest2 {"Sticky Chest", true, false, myItem2};  
+   
     Spell mySpell0 {"BoomBadaboom", 3,3, true, 3, Spell::Fire};
-    Spell mySpell1 {"BoomBadaboom", 1,2, true, 3, Spell::Ice};
+    Spell mySpell1 {"Big Bonk", 1,2, true, 3, Spell::Ice};
     Spell mySpell2  {"BoomBadaboom", 9999,9999, true, 3, Spell::Blob};
-    Room myRoom0{"Pit", 2,2, true, myItem0};
-    Room myRoom1{("Shower"),2,0, true, myItem1};
-    Room myRoom2{"Ballgame Park", 2,1,false,  myItem2 };
+    Room myRoom0{"Pit", 2,2, true, true, myItem0};
+    Room myRoom1{("Shower"),2,0, true,true, myItem1};
+    Room myRoom2{"Ballgame Park", 2,1, true, false,  myItem2 };
     
     std::vector<Enemy> myPopulation;
     std::vector<Room> myRooms;
     std::vector<Door> myDoors; 
     std::vector<Item> myItems;
-    // std::vector<Spell> mySpells;
+    std::vector<Spell> mySpells;
     
 };

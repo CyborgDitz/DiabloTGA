@@ -13,18 +13,16 @@ void Room::PrintRoomData(std::vector<Enemy>* aPopulatiion)
     {
         std::cout << "No enemies present!" << std::endl;
     }
-    if (myHasItems)
+    if (myHasChest == true)
+    {
+        std::cout << "There is a chest! I will open it right now!" << std::endl;
+    }
+    if (myHasItems == true)
     {
         std::cout << "The loot is: " << myItem.GetName() << std::endl;
     }
    // std::cout << "My spell is " << mySpell << std::endl;
 }
-#include "Spell.h"
-
-#include <iostream>
-#include <ostream>
-
-#include "Door.h"
 
 void Room::CastSpell(Spell& aSpell)
 {
@@ -72,7 +70,7 @@ void Room::CastSpell(Spell& aSpell)
     {
         std::cout << "\n and lasts for " << theTimer<<" turns!" <<std::endl;
     }
-    SetSpellActive(true);
+  SetHasSpell(false);
 }
 
 void Room::PrintEnterRoom(const Player& aPlayer) const

@@ -42,10 +42,12 @@ void Player::RemoveFromInventory(Item& aItem)
     { 
         const char* myInvItem = myInventory[i].GetName();
         const char * targetItem = aItem.GetName();
-        bool removedItem = myInventory[i].GetName() == aItem.GetName();
-        if (removedItem)
+        //bool removedItem = myInventory[i].GetName() == aItem.GetName();
+        
+        //if (removedItem)
+        bool removeItem = strcmp(myInventory[i].GetName(), aItem.GetName()) == 0;
+        if (removeItem)
         {
-           
             std::cout << "I removed item " << aItem.GetName() << " from inventory" << std::endl;
             myInventory.erase(myInventory.begin() + i);
         }

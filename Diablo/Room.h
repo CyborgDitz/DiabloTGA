@@ -11,12 +11,13 @@
 class Room
 {
 public:
-    Room(const char* aName, const int aDoorsAmount, const int aEnemies, bool aHasItem, Item& aItem)
+    Room(const char* aName, const int aDoorsAmount, const int aEnemies, bool aHasCest, bool aHasItem, Item& aItem)
         : myItem(aItem)
     {
         myName = aName;
         myDoorsAmount = aDoorsAmount;
         myEnemies = aEnemies;
+        myHasChest = aHasCest;
         if (myEnemies > 0)
         {
             myHasEnemies = true;
@@ -31,10 +32,12 @@ public:
     void PrintRoomData(std::vector<Enemy>* aPopulatiion);
     void PrintEnterRoom(const Player& aPlayer) const;
     void SetDoors(const int aDoors) { myDoorsAmount = aDoors; }
-    bool HasItems() const { return myHasItems; }
-    bool GetSpell() const { return myHasItems; }
-
-    void SetSpellActive(const bool aActive) { myHasItems = aActive; }
+    bool GetHasChest() const { return myHasChest; }
+    bool GetHasItems() const { return myHasItems; }
+    bool GetHasSpell() const { return myHasSpell; }
+    void SetHasChest(bool aHasChest) { myHasChest = aHasChest; }
+    void SetHasItems(bool aHasItems) { myHasItems = aHasItems; }
+    void SetHasSpell(const bool aActive) { myHasSpell = aActive; }
 
 
     Item& GetItem() { return myItem; }
@@ -47,12 +50,12 @@ public:
     
 private:
     Item myItem;
-   // Chest myChest;
     Spell::Element myElement = Spell::Element::None;
     int myDoorsAmount = 2;
     int myEnemies{};
     const char* myName = "Room";
-    bool isSpellActive = false;
+    bool myHasChest = false;
+    bool myHasSpell = false;
     bool myHasItems;
     bool myHasEnemies = false;
 };
