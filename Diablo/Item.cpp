@@ -4,7 +4,7 @@
 
 void Item::PrintStats() const
 {
-    std::cout << "The Item: "<< myName << " stats are : \n " <<
-        "Affects MainStat by : " << myMainStat<< '\t' <<
-        "Affects MainStat by " << mySecondaryStat << '\n' << std::endl;
+    std::cout << "The Item - "<< myName << " - stats are : \n" <<
+        "Affects MainStat by: " << myMainMod << '\t' <<
+        "Affects Secondary Stat by: " << mySecondMod << '\n' << std::endl;
 }

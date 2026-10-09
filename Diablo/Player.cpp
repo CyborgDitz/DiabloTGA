@@ -2,6 +2,8 @@
 
 #include <iostream>
 
+#include "Room.h"
+
 void Player::PrintStats() const
 {
     std::cout << myName << "stats are : \n " <<
@@ -14,6 +16,43 @@ void Player::PrintStats() const
         "VIT " << myVit << '\t' <<
         "Carrying Cap: " << myCarryCap << '\n' <<std::endl;
 }
+
+
+
+
+void Player::PopulateInventory(Item& aItem)
+{  
+    const int myInventorySize = myInventory.size()+1;
+    for (int i = 0; i < myInventorySize ; i++)
+    {
+        myInventory.push_back(aItem);
+    }
+    //myInventory.push_back(aItem);
+}
+
+void Player::RemoveFromInventory(Item& aItem)
+{
+    if (myInventory.empty()==true)
+    {
+        std::cout << "I have no items in my inventory" << std::endl;
+        return;
+    }
+    
+    for (int i = 0; i < myInventory.size(); i++)
+    { 
+        const char* myInvItem = myInventory[i].GetName();
+        const char * targetItem = aItem.GetName();
+        bool removedItem = myInventory[i].GetName() == aItem.GetName();
+        if (removedItem)
+        {
+           
+            std::cout << "I removed item " << aItem.GetName() << " from inventory" << std::endl;
+            myInventory.erase(myInventory.begin() + i);
+        }
+    }
+}
+
+
 void Player::TakeDamage(const int aDamage)
 {
     //todo same func for monster and myPlayer
