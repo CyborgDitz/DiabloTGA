@@ -186,7 +186,55 @@ void GameManager::ChooseDoor()
         isLocked = false;
     }
 }
-
+void GameManager::CastSpell()
+{
+    Spell* theSpell =myCurrentSpell;
+    int theMainMod = theSpell->GetMainMod();
+    int theSecondMod = theSpell->GetSecondMod();
+    bool isConsumed = theSpell->GetIsConsumed();
+    int theTimer = theSpell->GetTimer();
+    std::cout << "I am charged with "  << std::endl;
+    switch (theSpell->GetElement())
+    {
+    case Spell::Element::None:
+        {
+            std::cout << "NUTHIN" << std::endl;
+            break;
+        }
+    case Spell::Element::Fire:
+        {
+            std::cout << "Fire!!!" << std::endl;
+            break;
+        }
+    case Spell::Element::Ice:
+        {
+            std::cout << "Ice!!!" << std::endl;
+            break;
+        }
+    case Spell::Element::Blob:
+        {
+            std::cout << "... wait what. Wtf is this slime? It looks delicious" << std::endl;
+            break;
+        }
+    case Spell::Element::Count:
+        {
+            break;
+        }
+    default: 
+        ;
+    }
+    std::cout << "Stat Buffs: Main = " <<theMainMod << "and Secondary stat: "<< theSecondMod<< std::endl;
+    
+    if (isConsumed == true)
+    {
+        std::cout << "\n  only one turn!" <<std::endl;
+    }
+    else
+    {
+        std::cout << "\n and lasts for " << theTimer<<" turns!" <<std::endl;
+    }
+    SetHasSpell(false);
+}
 bool GameManager::isEnemiesHere() const
 {
     if (myPopulation.empty() == false)
@@ -243,9 +291,9 @@ void GameManager::GameCombat()
             myPopulation[i].PrintStats();
         }
         //player turn
-        if (myCurrentRoom->GetHasSpell() == true)
+        if (GetHasSpell() == true)
         {
-            Cast
+           
         }
         std::cout << "pick a target " << std::endl;
         const int target = Library::SetInput(1, myPopulation.size()) - 1;

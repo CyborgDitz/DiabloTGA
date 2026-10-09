@@ -78,8 +78,10 @@ public:
     void PopulateSpells(std::vector<Spell>& aSpells);
     void PrintMainMenuChoices(Player& aPlayer);
     bool isEnemiesHere() const;
-    
-    
+    void CastSpell();
+    bool GetHasSpell() const { return myHasSpell; }
+    void SetHasSpell(const bool aActive) { myHasSpell = aActive; }
+    void SetCurrentSpell(const Spell& aSpell) { myCurrentSpell = aSpell; }
 
     RoomState& GetRoomState()  { return myRoomState; }
     void SetRoomState(const RoomState& aState){myRoomState = aState;}
@@ -94,7 +96,8 @@ private:
     Door* myCurrentDoor;
   Spell* myCurrentSpell;
     
-    
+   
+    bool myHasSpell = false;
     
     Enemy myEnemy0{"BobsterMonster",1,1, };
     Enemy myEnemy1{"Big Blob",1, 2,};

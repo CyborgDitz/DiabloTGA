@@ -34,16 +34,16 @@ public:
     void SetDoors(const int aDoors) { myDoorsAmount = aDoors; }
     bool GetHasChest() const { return myHasChest; }
     bool GetHasItems() const { return myHasItems; }
-    bool GetHasSpell() const { return myHasSpell; }
+    
     void SetHasChest(bool aHasChest) { myHasChest = aHasChest; }
     void SetHasItems(bool aHasItems) { myHasItems = aHasItems; }
-    void SetHasSpell(const bool aActive) { myHasSpell = aActive; }
+   
 
 
     Item& GetItem() { return myItem; }
     //hest& GetChest() { return myChest; }
 
-    void CastSpell(Spell& aSpell);
+   
     Spell::Element& GetElement() { return myElement; }
     //void SetState();
 
@@ -55,7 +55,7 @@ private:
     int myEnemies{};
     const char* myName = "Room";
     bool myHasChest = false;
-    bool myHasSpell = false;
+  
     bool myHasItems;
     bool myHasEnemies = false;
 };
