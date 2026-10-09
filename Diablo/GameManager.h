@@ -102,13 +102,15 @@ private:
     Item myItem2 {"The Horn of Doom and Slimery", -100, -100};
     
     
-    Chest myChest0 {"Sticky Chest", true, false, myItem0};  
-    Chest myChest1 {"Sticky Chest", true, false, myItem1};
-    Chest myChest2 {"Sticky Chest", true, false, myItem2};  
-    
-    Room myRoom0{"Pit", 2,2, true, myChest0, myItem0};
-    Room myRoom1{("Shower"),2,0, true, myChest1,myItem1};
-    Room myRoom2{"Ballgame Park", 2,1,false, myChest2, myItem2 };
+    // Chest myChest0 {"Sticky Chest", true, false, myItem0};  
+    // Chest myChest1 {"Sticky Chest", true, false, myItem1};
+    // Chest myChest2 {"Sticky Chest", true, false, myItem2};  
+    Spell mySpell0 {"BoomBadaboom", 3,3, true, 3, Spell::Fire};
+    Spell mySpell1 {"BoomBadaboom", 1,2, true, 3, Spell::Ice};
+    Spell mySpell2  {"BoomBadaboom", 9999,9999, true, 3, Spell::Blob};
+    Room myRoom0{"Pit", 2,2, true, myItem0};
+    Room myRoom1{("Shower"),2,0, true, myItem1};
+    Room myRoom2{"Ballgame Park", 2,1,false,  myItem2 };
     
     std::vector<Enemy> myPopulation;
     std::vector<Room> myRooms;

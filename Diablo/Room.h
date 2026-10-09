@@ -11,8 +11,8 @@
 class Room
 {
 public:
-    Room(const char* aName, const int aDoorsAmount, const int aEnemies, bool aHasItem, Chest& aChest, Item& aItem)
-        : myChest(aChest), myItem(aItem)
+    Room(const char* aName, const int aDoorsAmount, const int aEnemies, bool aHasItem, Item& aItem)
+        : myItem(aItem)
     {
         myName = aName;
         myDoorsAmount = aDoorsAmount;
@@ -38,18 +38,16 @@ public:
 
 
     Item& GetItem() { return myItem; }
-    Chest& GetChest() { return myChest; }
+    //hest& GetChest() { return myChest; }
 
-    void CastSpell();
+    void CastSpell(Spell& aSpell);
     Spell::Element& GetElement() { return myElement; }
     //void SetState();
 
-    Spell mySpell0 {"BoomBadaboom", 3,3, true, 3, Spell::Fire};
-    Spell mySpell1 {"BoomBadaboom", 1,2, true, 3, Spell::Ice};
-    Spell mySpell2  {"BoomBadaboom", 9999,9999, true, 3, Spell::Blob};
+    
 private:
     Item myItem;
-    Chest myChest;
+   // Chest myChest;
     Spell::Element myElement = Spell::Element::None;
     int myDoorsAmount = 2;
     int myEnemies{};
