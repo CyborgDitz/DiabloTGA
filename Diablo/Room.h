@@ -11,8 +11,8 @@
 class Room
 {
 public:
-    Room(const char* aName, const int aDoorsAmount, const int aEnemies, bool aHasCest, bool aHasItem, Item& aItem)
-        : myItem(aItem)
+    Room(const char* aName, const int aDoorsAmount, const int aEnemies, bool aHasCest, bool aHasItem, Item& aItem, Spell& aSpell)
+        : myItem(aItem), mySpell(aSpell)
     {
         myName = aName;
         myDoorsAmount = aDoorsAmount;
@@ -23,6 +23,7 @@ public:
             myHasEnemies = true;
         }
         myHasItems = aHasItem;
+        myHasSpell = true;
     }
 
 
@@ -34,28 +35,22 @@ public:
     void SetDoors(const int aDoors) { myDoorsAmount = aDoors; }
     bool GetHasChest() const { return myHasChest; }
     bool GetHasItems() const { return myHasItems; }
-    
+    bool GetHasSpell() const { return myHasSpell; }
+    void SetHasSpell(const bool aActive) { myHasSpell = aActive; }
     void SetHasChest(bool aHasChest) { myHasChest = aHasChest; }
     void SetHasItems(bool aHasItems) { myHasItems = aHasItems; }
-   
-
-
-    Item& GetItem() { return myItem; }
-    //hest& GetChest() { return myChest; }
-
-   
-    Spell::Element& GetElement() { return myElement; }
-    //void SetState();
-
     
+    Item& GetItem() { return myItem; }
+    Spell& GetSpell() { return mySpell; }
+
 private:
     Item myItem;
-    Spell::Element myElement = Spell::Element::None;
+    Spell mySpell;
     int myDoorsAmount = 2;
     int myEnemies{};
     const char* myName = "Room";
     bool myHasChest = false;
-  
-    bool myHasItems;
+    bool myHasItems = false;
+    bool myHasSpell = false;
     bool myHasEnemies = false;
 };

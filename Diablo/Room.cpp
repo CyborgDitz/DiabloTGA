@@ -21,6 +21,7 @@ void Room::PrintRoomData(std::vector<Enemy>* aPopulatiion)
     {
         std::cout << "The loot is: " << myItem.GetName() << std::endl;
     }
+    std::cout << "Your spellbook finds a powerful magic in the room! But yo ucan only use it once! It is " << mySpell.GetName()<< std::endl;
    // std::cout << "My spell is " << mySpell << std::endl;
 }
 

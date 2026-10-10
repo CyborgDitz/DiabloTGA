@@ -16,11 +16,11 @@ public:
     GameManager()
     {
         //myPlayer.SetName();
-        PopulateRooms(myRooms);
-        PopulateDoors(myDoors);
-        PopulateSpells(mySpells);
+        PopulateRooms();
+        PopulateDoors();
         myCurrentRoom = &myRooms[0];
         myCurrentDoor = &myDoors[0];
+        
     }
     enum class MainState
     {
@@ -54,37 +54,30 @@ public:
     Player& GetPlayer() {return myPlayer;}
     MainState& GetMainState() {return myMainState;}
     
-    Room& GetRoom1() {return myRoom1;}
-    Room& GetRoom2() {return myRoom2;}
-    Enemy& GetEnemy0() {return myEnemy0;}
-    Enemy& GetEnemy1() {return myEnemy1;}
+    
     std::vector<Enemy>&GetPopulation(){return myPopulation;}
     
-    void PopulateRooms(std::vector<Room>& aRooms);
+    void PopulateRooms();
     void SetGameState(const MainState& aMainState){myMainState = aMainState; }
-    
-    void PickupItem();
-    
+  
+    RoomState& GetRoomState()  { return myRoomState; }
+    void SetRoomState(const RoomState& aState){myRoomState = aState;}
+   
     void PlayGame();
     void StartRoomLoop();
-    void RemoveFromSpells(Spell& aSpell);
+
     void SelectRoomMenuChoices();
     void SetCheatState(Player& aPlayer);
     void GameCombat();
     void ChooseDoor();
     void PopulateRoom();
     void PopulateEnemies(std::vector<Enemy>& aPopulation, Enemy& aEnemyType, Room& aRoom);
-    void PopulateDoors(std::vector<Door>& aDoors);
-    void PopulateSpells(std::vector<Spell>& aSpells);
+    void PopulateDoors();
+   
     void PrintMainMenuChoices(Player& aPlayer);
     bool isEnemiesHere() const;
-    void CastSpell();
-    bool GetHasSpell() const { return myHasSpell; }
-    void SetHasSpell(const bool aActive) { myHasSpell = aActive; }
-    void SetCurrentSpell(const Spell& aSpell) { myCurrentSpell = aSpell; }
+    
 
-    RoomState& GetRoomState()  { return myRoomState; }
-    void SetRoomState(const RoomState& aState){myRoomState = aState;}
     
 private:
     
@@ -94,36 +87,29 @@ private:
     Player myPlayer{10,11,12};
     Room* myCurrentRoom;
     Door* myCurrentDoor;
-  Spell* myCurrentSpell;
-    
-   
-    bool myHasSpell = false;
     
     Enemy myEnemy0{"BobsterMonster",1,1, };
     Enemy myEnemy1{"Big Blob",1, 2,};
     Enemy myEnemy2 {"Diablob", 666,666,};
   
-    Door myDoor0 {myRoom2,myRoom1, 10, true};
-    Door myDoor1 {myRoom1,myRoom2, 10, true};
-    Door myDoor2 {myRoom2,myRoom0, 0, false};
+    Door myDoor0 { myRoom2,myRoom1,10, true};
+    Door myDoor1 {myRoom0,myRoom2, 10, true};
+    Door myDoor2 {myRoom1, myRoom0 ,0, false};
 
     Item myItem0 {"Bonk Hammer", 3, 2};
     Item myItem1 {"Slime sword", 10, 5};
     Item myItem2 {"The Horn of Doom and Slimery", -100, -100};
     
-    
-   
-    Spell mySpell0 {"BoomBadaboom", 3,3, true, 3, Spell::Fire};
-    Spell mySpell1 {"Big Bonk", 1,2, true, 3, Spell::Ice};
-    Spell mySpell2  {"BoomBadaboom", 9999,9999, true, 3, Spell::Blob};
-    Room myRoom0{"Pit", 2,2, true, true, myItem0};
-    Room myRoom1{("Shower"),2,0, true,true, myItem1};
-    Room myRoom2{"Ballgame Park", 2,1, true, false,  myItem2 };
+    Spell mySpell0 {"BoomBadaboom", 3,3, true};
+    Spell mySpell1 {"Big Bonk", 1,2, true };
+    Spell mySpell2 {"The Big Blob Bang", 9999,9999, true};
+    Room myRoom0{"Pit", 2,2, true, true, myItem0, mySpell0};
+    Room myRoom1{("Shower"),2,0, true,true, myItem1, mySpell1};
+    Room myRoom2{"Ballgame Park", 2,1, false, true,  myItem2, mySpell2};
     
     std::vector<Enemy> myPopulation;
     std::vector<Room> myRooms;
     std::vector<Door> myDoors; 
     std::vector<Item> myItems;
-    std::vector<Spell> mySpells;
     
 };

@@ -1,6 +1,8 @@
 ﻿#pragma once
 #include <vector>
 #include "Item.h"
+#include "Spell.h"
+
 class Player
 {
 public:
@@ -26,8 +28,7 @@ public:
     int GetDefense() const { return myDefense; }
     int GetCarryCap() const { return myCarryCap; }
     const char* GetName() const { return myName; }
-
-
+  
     void SetStr(const int aStr) { myStr = aStr; }
     void SetDex(const int aDex) { myDex = aDex; }
     void SetVit(const int aVit) { myVit = aVit; }
@@ -36,37 +37,7 @@ public:
     void SetDefense(const int aDefense) { myDefense = aDefense; }
     void SetCarryCap(const int aCap) { myCarryCap = aCap; }
 
-    int CalcPlayerAttack() const
-    {
-        int totalAtk = myAtk;
-        if (GetInfinite() == true)
-        {
-          return totalAtk = 9999;
-        }
-        
-        //could put in stats somehow?
-        int itemStrStatMod{};
-        int itemDexStatMod{};
-        int itemAtkMod{};
-        if (myInventory.empty() == false)
-        {
-            // if ENUM weapon
-            for (int i = 0; i < myInventory.size(); i++)
-            {
-                if (myInventory[i].GetMainMod() >0)
-                {
-                 itemStrStatMod= myInventory[i].GetMainMod();
-                    
-                }
-                if (myInventory[i].GetSecondModifier() >0)
-                {
-                    itemAtkMod= myInventory[i].GetSecondModifier();
-                }
-            }
-            totalAtk = itemStrStatMod + itemDexStatMod + itemAtkMod;
-        }
-        return totalAtk;
-    }
+    int CalcPlayerAttack() const;
 
     void TakeDamage(int aDamage);
     bool GetIsAlive() { return myIsAlive; }
@@ -81,7 +52,12 @@ public:
 
     void PopulateInventory(Item& aItem);
     void RemoveFromInventory(Item& aItem);
+    void PopulateSpells(Spell& aSpell);
+    void RemoveFromSpells(Spell& aSpell);
+    void CastSpell();
+    void RemoveSpell();
 
+    // PopulateSpells(mySpells);
 
     std::vector<Item> GetInventory() const { return myInventory; }
 
@@ -99,8 +75,10 @@ private:
     int myCarryCap{};
     int myDefense{};
 
+    bool hasSpellActive = false;
     bool myIsAlive = true;
     bool hasGodMode = false;
     bool hasInfinite = false;
     std::vector<Item> myInventory;
+    std::vector<Spell> mySpellBook;
 };

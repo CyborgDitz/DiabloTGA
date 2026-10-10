@@ -4,6 +4,39 @@
 
 #include "Room.h"
 
+    int Player::CalcPlayerAttack() const
+    {
+        int totalAtk = myAtk;
+        if (GetInfinite() == true)
+        {
+          return totalAtk = 9999;
+        }
+        
+        //could put in stats somehow?
+        int StrStatMod = myStr;
+        int DexStatMod= myDex;
+        
+        if (myInventory.empty() == false)
+        {
+            // if ENUM weapon
+            for (int i = 0; i < myInventory.size(); i++)
+            {
+                if (myInventory[i].GetMainMod() >0)
+                {
+                 StrStatMod = myInventory[i].GetMainMod();
+                    
+                }
+                
+                if (myInventory[i].GetSecondModifier() >0)
+                {
+                    DexStatMod= myInventory[i].GetSecondModifier();
+                }
+            }
+            totalAtk += StrStatMod + DexStatMod + totalAtk;
+        }
+      
+        return totalAtk;
+    }
 void Player::PrintStats() const
 {
     std::cout << myName << "stats are : \n " <<
@@ -17,8 +50,70 @@ void Player::PrintStats() const
         "Carrying Cap: " << myCarryCap << '\n' <<std::endl;
 }
 
+void Player::PopulateSpells(Spell& aSpell)
+{
+    const int myInventorySize = mySpellBook.size()+1;
+    for (int i = 0; i < myInventorySize ; i++)
+    {
+        mySpellBook.push_back(aSpell);
+    }
 
+    //std::cout<< "debug There are " << aDoors.size() << " doors" << std::endl; 
+}
 
+void Player::CastSpell()
+{
+        if (mySpellBook.empty() == false && hasSpellActive == false)
+        {
+            // if ENUM weapon
+            for (int i = 0; i < mySpellBook.size(); i++)
+            {
+                if (mySpellBook[i].GetMainMod() >0)
+                {
+                    myStr += mySpellBook[i].GetMainMod();
+                    myDex += mySpellBook[i].GetMainMod();
+                    myVit += mySpellBook[i].GetMainMod();
+                    
+                }
+                
+                if (mySpellBook[i].GetSecondModifier() >0)
+                {
+                    myAtk += mySpellBook[i].GetSecondModifier();
+                    myDefense += mySpellBook[i].GetSecondModifier();
+                    myCarryCap += mySpellBook[i].GetSecondModifier();
+                }
+            }
+           hasSpellActive = true;
+        }
+        
+        
+}
+void Player::RemoveSpell()
+    {
+        if (mySpellBook.empty() == false && hasSpellActive == true)
+        {
+            // if ENUM weapon
+            for (int i = 0; i < mySpellBook.size(); i++)
+            {
+                if (mySpellBook[i].GetMainMod() >0)
+                {
+                    myStr -= mySpellBook[i].GetMainMod();
+                    myDex -= mySpellBook[i].GetMainMod();
+                    myVit -= mySpellBook[i].GetMainMod();
+                    
+                }
+                
+                if (mySpellBook[i].GetSecondModifier() >0)
+                {
+                    myAtk -= mySpellBook[i].GetSecondModifier();
+                    myDefense -= mySpellBook[i].GetSecondModifier();
+                    myCarryCap -= mySpellBook[i].GetSecondModifier();
+                }
+            }
+            mySpellBook.clear();
+            hasSpellActive  = false;
+        }
+    }
 
 void Player::PopulateInventory(Item& aItem)
 {  

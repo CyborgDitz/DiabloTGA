@@ -30,7 +30,7 @@ public:
     void MoveToRoom(const Room& aFromRoom) const;
     Room& GetPrevRoom(){return myPrevRoom;}
     Room& GetNextRoom(){return myNextRoom;}
-    
+   
     //Room& GetNexRoom(const Room& aFromRoom) const;
 
 private:

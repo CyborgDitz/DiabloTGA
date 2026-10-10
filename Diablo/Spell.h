@@ -1,53 +1,27 @@
 ﻿#pragma once
-
 #include <string.h>
-
 class Spell
-{
+{   
 public:
-    enum  Element
+   Spell( const char* aName,  int aMainMod,  int aSecondMod, bool aHasSpellSlot)   
     {
-        None = 0,
-        Fire = 1,
-        Ice = 2,
-        Blob = 3,
-        Count = 4
-    }; 
-    Spell( const char* aName, const int aMainMod, const int aSecondMod, const bool aIsConsumed, const int aTimer, const Element aElement)
-    { 
         strcpy_s(myName, aName);
         myMainMod = aMainMod;
         mySecondMod = aSecondMod;
-        myIsConsumed= aIsConsumed;
-        myTimer = aTimer;
-        myElement = aElement;
+        hasSpellSlot = aHasSpellSlot;
     }
-    
-    const char* GetName() { return myName; }
-    int GetMainMod() { return myMainMod; }
-    int GetSecondMod() { return mySecondMod; }
-    bool GetIsConsumed() { return myIsConsumed; }
-    int GetTimer()
-    {
-        if (myIsConsumed == false)
-        {
-        return myTimer;
-        }
-        else
-        {
-           myTimer = 0;
-        }
-    }
-    
-    Element& GetElement() { return myElement; }
-   
+
+
+    const char* GetName() const { return myName; }
+    int GetMainMod() const { return myMainMod; }
+    int GetSecondModifier() const { return mySecondMod; }
+  
+    void PrintStats() const;
+
 private:
-    char myName[23] = {};
+    char myName[31] = {};
     int myMainMod {};
     int  mySecondMod{};
-    bool myIsConsumed{};
-    int myTimer {};
-    
-    Element myElement = None;
-   
+    bool hasSpellSlot = false;
+  
 };

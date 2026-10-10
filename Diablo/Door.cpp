@@ -73,7 +73,7 @@ void Door::Bash(const int aPlayerAttribute)
     }
     else
     {
-        std::cout << "The lock is stll closed!" << std::endl;
+        std::cout << "The lock is still closed!" << std::endl;
     }
 }
 

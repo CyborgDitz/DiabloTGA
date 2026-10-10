@@ -15,31 +15,23 @@ void GameManager::PrintMainMenuChoices(Player& aPlayer)
     }
 }
 
-void GameManager::PopulateRooms(std::vector<Room>& aRooms)
+void GameManager::PopulateRooms()
 {
-    aRooms.push_back(myRoom0);
-    aRooms.push_back(myRoom1);
-    aRooms.push_back(myRoom2);
+    myRooms.push_back(myRoom0);
+    myRooms.push_back(myRoom1);
+     myRooms.push_back(myRoom2);
     // std::cout<< "debug There are " << aRooms.size() << " rooms" << std::endl; 
 }
 
-void GameManager::PopulateDoors(std::vector<Door>& aDoors)
+void GameManager::PopulateDoors()
 {
-    aDoors.push_back(myDoor0);
-    aDoors.push_back(myDoor1);
-    aDoors.push_back(myDoor2);
+    myDoors.push_back(myDoor0);
+    myDoors.push_back(myDoor1);
+    myDoors.push_back(myDoor2);
 
     //std::cout<< "debug There are " << aDoors.size() << " doors" << std::endl; 
 }
 
-void GameManager::PopulateSpells(std::vector<Spell>& aSpells)
-{
-    aSpells.push_back(mySpell0);
-    aSpells.push_back(mySpell1);
-    aSpells.push_back(mySpell2);
-
-    //std::cout<< "debug There are " << aDoors.size() << " doors" << std::endl; 
-}
 void GameManager::PopulateEnemies(std::vector<Enemy>& aPopulation, Enemy& aEnemyType, Room& aRoom)
 {
     int enemiesAmount = aRoom.GetEnemiesAmount();
@@ -57,14 +49,12 @@ void GameManager::SetCheatState(Player& aPlayer)
             << "3: Both infinite and immortality \t0: Exit cheats with your choices" << std::endl;
         const int min = static_cast<int>(CheatState::Exit);
         const int max = static_cast<int>(CheatState::Count);
-        const CheatState input = static_cast<CheatState>(Library::SetInput(min, max)); // get a setter
-        switch (input)
+        myCheatState  = static_cast<CheatState>(Library::SetInput(min, max)); // get a setter
+        switch (myCheatState )
         {
         case CheatState::Exit :
             {
-                std::cout << "You are exiting the Cheat Menu with these cheats here" << std::endl;
-                std::cout << "Your cheats are: " << std::endl;
-                myCheatState = CheatState::Exit;
+                std::cout << "You are exiting the Cheat Menu" << std::endl;
                 myMainState = MainState::Menu;
                 break;
             }
@@ -102,15 +92,15 @@ void GameManager::SetCheatState(Player& aPlayer)
                 if (aPlayer.GetGodMode() == true && aPlayer.GetInfinite() == true)
                 {
                     aPlayer.SetInfinite(false);
-                    aPlayer.SetInfinite(false);
+                    aPlayer.SetGodMode(false);
                     std::cout << "You have turned off infinite damage and godmode" << std::endl;
                 }
                 else
                 {
                     aPlayer.SetGodMode(true);
                     aPlayer.SetInfinite(true);
+                    std::cout << "You have have on infinite damage and godmode" << std::endl;
                 }
-                std::cout << "You have have on infinite damage and godmode" << std::endl;
                 break;
             }
         case CheatState::SayCheats :
@@ -134,6 +124,9 @@ void GameManager::SetCheatState(Player& aPlayer)
                 break;
             }
         case CheatState::Count :
+            {
+                break;
+            }
         default :
             {
                 std::cout << "not that one" << std::endl;
@@ -147,94 +140,51 @@ void GameManager::ChooseDoor()
 {
     const int minInput = 1;
     const int doorAmount = myCurrentRoom->GetDoorAmount();
+   
     bool isLocked = true;
     while (isLocked)
     {
-        std::cout << "Pick a door! 1:next Room, 2: previous door" << std::endl;
+        std::cout << "Pick a door! 1:next Room "<< myCurrentDoor->GetNextRoom().GetName()<<
+        ", 2: previous door"<< myCurrentDoor->GetPrevRoom().GetName()<< std::endl;
 
-        const int input = Library::SetInput(minInput, doorAmount - 1);
-
-        Door* theTargetDoor = &myDoors[input];
-        std::cout << "I am going from the " << myCurrentRoom->GetName() << " room to\n the room "
-            << myCurrentDoor->GetNextRoom().GetName() << " and my prev room is " << myCurrentDoor->GetPrevRoom().
-            GetName() << std::endl;
+        int input = (Library::SetInput(minInput, doorAmount));
+        
+        std::cout << "Entering " << myCurrentRoom->GetName() << std::endl;
+       
         if (input == 1)
         {
-            myCurrentRoom = &myCurrentDoor->GetNextRoom();
+            myCurrentRoom= &myCurrentDoor->GetNextRoom();
+            
         }
-        else if (input == doorAmount)
+        else if (input == 2)
         {
-            myCurrentRoom = &myCurrentDoor->GetPrevRoom();
+            myCurrentRoom= &myCurrentDoor->GetPrevRoom();
         }
-
-        std::cout << "Entering " << myCurrentRoom->GetName() << std::endl;
-
-        if (theTargetDoor->GetIsLocked() == true)
+        if (myCurrentDoor->GetIsLocked() == true)
         {
-            theTargetDoor->UnlockDoor(myPlayer);
-            if (theTargetDoor->GetIsLocked() == true)
+            myCurrentDoor->UnlockDoor(myPlayer);
+            if (myCurrentDoor->GetIsLocked() == true)
             {
                 std::cout << "Door is still locked!" << std::endl;
                 return;
             }
 
-            if (theTargetDoor->GetIsLocked() == false)
-                myCurrentDoor = theTargetDoor;
+            if (myCurrentDoor->GetIsLocked() == false)
+               
             std::cout << "Door is not locked!" << std::endl;
             return;
         }
+        for (int i = 0; i < myRooms.size(); i++)
+        if (strcmp(myCurrentDoor->GetNextRoom().GetName(), myRooms[i].GetName())== 0)
+        {
+           
+        }
+       
         isLocked = false;
     }
+      
 }
-void GameManager::CastSpell()
-{
-    Spell* theSpell =myCurrentSpell;
-    int theMainMod = theSpell->GetMainMod();
-    int theSecondMod = theSpell->GetSecondMod();
-    bool isConsumed = theSpell->GetIsConsumed();
-    int theTimer = theSpell->GetTimer();
-    std::cout << "I am charged with "  << std::endl;
-    switch (theSpell->GetElement())
-    {
-    case Spell::Element::None:
-        {
-            std::cout << "NUTHIN" << std::endl;
-            break;
-        }
-    case Spell::Element::Fire:
-        {
-            std::cout << "Fire!!!" << std::endl;
-            break;
-        }
-    case Spell::Element::Ice:
-        {
-            std::cout << "Ice!!!" << std::endl;
-            break;
-        }
-    case Spell::Element::Blob:
-        {
-            std::cout << "... wait what. Wtf is this slime? It looks delicious" << std::endl;
-            break;
-        }
-    case Spell::Element::Count:
-        {
-            break;
-        }
-    default: 
-        ;
-    }
-    std::cout << "Stat Buffs: Main = " <<theMainMod << "and Secondary stat: "<< theSecondMod<< std::endl;
-    
-    if (isConsumed == true)
-    {
-        std::cout << "\n  only one turn!" <<std::endl;
-    }
-    else
-    {
-        std::cout << "\n and lasts for " << theTimer<<" turns!" <<std::endl;
-    }
-    SetHasSpell(false);
-}
+
 bool GameManager::isEnemiesHere() const
 {
     if (myPopulation.empty() == false)
@@ -282,7 +232,7 @@ void GameManager::PopulateRoom()
 
 void GameManager::GameCombat()
 {
-    
+   
     while (myPlayer.GetIsAlive() && myPopulation.empty() == false)
     {
         for (int i = 0; i < myPopulation.size(); i++)
@@ -290,24 +240,26 @@ void GameManager::GameCombat()
             std::cout << " Enemy target:" << i + 1 << std::endl;
             myPopulation[i].PrintStats();
         }
+        
         //player turn
-        if (GetHasSpell() == true)
-        {
-           
-        }
+       
+        
         std::cout << "pick a target " << std::endl;
         const int target = Library::SetInput(1, myPopulation.size()) - 1;
-        const int playerAtk = myPlayer.CalcPlayerAttack();
+       
+         int playerAtk = myPlayer.CalcPlayerAttack();
 
         myPopulation[target].TakeDamage(playerAtk);
 
+        //enemy phase
         if (myPopulation[target].GetIsAlive() == false)
         {
             myPopulation.erase(myPopulation.begin() + target);
         }
+        
         for (int i = 0; i < myPopulation.size(); i++)
         {
-            int mobAtk = myPopulation[i].GetAtk();
+            const int mobAtk = myPopulation[i].GetAtk();
             myPlayer.TakeDamage(mobAtk);
         }
     }
@@ -317,9 +269,15 @@ void GameManager::StartRoomLoop()
 {
     myCurrentRoom = &myRooms[0];
     myCurrentDoor = &myDoors[0];
+  
+    myPlayer.PopulateSpells(myCurrentRoom->GetSpell());
     PopulateRoom();
     while (myPlayer.GetIsAlive() && myRoomState != RoomState::Exit)
     {
+       
+        Spell& theRoomSpell = myCurrentRoom->GetSpell(); 
+        
+        system("cls");
         {
             std::cout << "I am in room: " << myCurrentRoom->GetName() << std::endl;
             myCurrentRoom->PrintRoomData(&myPopulation);
@@ -328,7 +286,9 @@ void GameManager::StartRoomLoop()
             switch (myRoomState)
             {
             case RoomState::Exit :
-                break;
+                {
+                    break;
+                }
             case RoomState::OpenDoor :
                 {
                     if (isEnemiesHere() == true)
@@ -339,8 +299,11 @@ void GameManager::StartRoomLoop()
                     {
                         std::cout << "I am opening the doors" << std::endl;
                         ChooseDoor();
+                        
                         PopulateRoom();
                     }
+                    myPlayer.RemoveSpell();
+                    myPlayer.PopulateSpells(myCurrentRoom->GetSpell());
                     break;
                 }
             case RoomState::Combat :
@@ -358,29 +321,39 @@ void GameManager::StartRoomLoop()
                 }
             case RoomState::CastMagic:
                 {
+                    std::cout<< "I cast the spell for the next monster" << std::endl;
+                    if (myCurrentRoom->GetHasSpell()==true)
+                    {
+                        myCurrentRoom->SetHasSpell( false);
+                        myPlayer.CastSpell();
+                    }
                     break;
                 }
             case RoomState::Explore :
                 {
-                   
-                   
-                    if (myCurrentRoom->GetHasChest()== true && myCurrentRoom->GetHasItems() == true )
+                    if (myCurrentRoom->GetHasItems() == true && myPopulation.size() > 0)
+                    {
+                        std::cout << "The monster blocks the item on the floor!" << std::endl;
+                        break;
+                    }
+                    else if (myCurrentRoom->GetHasChest()== true && myCurrentRoom->GetHasItems() == true )
                     {
                         std::cout << "I found an item in the chest!" << std::endl;
                         myCurrentRoom->SetHasChest(false);
                        
                     }
-                    else if (myCurrentRoom->GetHasItems() == true)
+                    else if ( myCurrentRoom->GetHasItems() == true)
                     {
                         std::cout << "I found an item on the floor!" << std::endl;
                     }
                     else
                     {
                         std::cout << "There is nothing here..." << std::endl;
-                        return;
+                       break;
                     }
                     myCurrentRoom->SetHasItems(false);
                     myPlayer.PopulateInventory(myCurrentRoom->GetItem());
+                    std::cout << "I took the " << myCurrentRoom->GetItem().GetName() << " and put it into my inventory." << std::endl;
                     break;
                 }
             case RoomState::PrintStats :
@@ -398,25 +371,7 @@ void GameManager::StartRoomLoop()
     }
 }
 
-void GameManager::RemoveFromSpells(Spell& aSpell)
-{
-    if (mySpells.empty()==true)
-    {
-        std::cout << "There is no power in the room!" << std::endl;
-        return;
-    }
-    
-    for (int i = 0; i < mySpells.size(); i++)
-    { 
-       
-        bool removeItem = strcmp(mySpells[i].GetName(), aSpell.GetName()) == 0;
-        if (removeItem)
-        {
-            std::cout << "I removed spell " << aSpell.GetName() << " from the spellbook" << std::endl;
-            mySpells.erase(mySpells.begin() + i);
-        }
-    }
-}
+
 void GameManager::PlayGame()
 {
 
