@@ -160,6 +160,19 @@ void GameManager::ChooseDoor()
         {
             myCurrentRoom= &myCurrentDoor->GetPrevRoom();
         }
+        
+        if (strcmp(myCurrentDoor->GetNextRoom().GetName(), myDoor0.GetNextRoom().GetName())== 0)
+        {
+            myCurrentDoor = &myDoors[1];
+        }
+        else if (strcmp(myCurrentDoor->GetNextRoom().GetName(), myDoor1.GetNextRoom().GetName())== 0)
+        {
+            myCurrentDoor = &myDoors[2];
+        }
+        else if (strcmp(myCurrentDoor->GetNextRoom().GetName(), myDoor2.GetNextRoom().GetName())== 0)
+        {
+           myCurrentDoor = &myDoors[0];
+        }
         if (myCurrentDoor->GetIsLocked() == true)
         {
             myCurrentDoor->UnlockDoor(myPlayer);
@@ -174,11 +187,7 @@ void GameManager::ChooseDoor()
             std::cout << "Door is not locked!" << std::endl;
             return;
         }
-        for (int i = 0; i < myRooms.size(); i++)
-        if (strcmp(myCurrentDoor->GetNextRoom().GetName(), myRooms[i].GetName())== 0)
-        {
-           
-        }
+     
        
         isLocked = false;
     }
