@@ -1,6 +1,8 @@
 ﻿#pragma once
 #include <vector>
+
 #include "Item.h"
+#include "ItemType.h"
 #include "Spell.h"
 
 class Player
@@ -51,7 +53,7 @@ public:
     void PrintStats() const;
 
     void PopulateInventory(Item& aItem);
-    void RemoveFromInventory(Item& aItem);
+    void RemoveFromInventory(ItemType& aItem);
     void PopulateSpells(Spell& aSpell);
     void RemoveFromSpells(Spell& aSpell);
     void CastSpell();

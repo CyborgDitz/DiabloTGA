@@ -4,7 +4,8 @@
 #include "Cheats.h"
 #include "Door.h"
 #include "Enemy.h"
-#include "Item.h"
+
+#include "ItemFactory.h"
 #include "Player.h"
 #include "Room.h"
 
@@ -15,7 +16,7 @@ class GameManager
 public:
     GameManager()
     {
-        //myPlayer.SetName();
+           
         PopulateRooms();
         PopulateDoors();
         myCurrentRoom = &myRooms[0];
@@ -80,36 +81,34 @@ public:
 
     
 private:
-    
+  
     MainState myMainState = MainState::Menu;
     CheatState myCheatState = CheatState::Count;
     RoomState myRoomState = RoomState::Explore;
     Player myPlayer{10,11,12};
     Room* myCurrentRoom;
     Door* myCurrentDoor;
+     
+    ItemFactory itemFactory;
+    Item  myItem0 = itemFactory.CreateItem(enumItemType::Hammer);
+    Item myItem1 = itemFactory.CreateItem(enumItemType::Sword);
+    Item myItem2 = itemFactory.CreateItem(enumItemType::Horn);
     
     Enemy myEnemy0{"BobsterMonster",1,1, };
     Enemy myEnemy1{"Big Blob",1, 2,};
     Enemy myEnemy2 {"Diablob", 666,666,};
-  
-    Door myDoor0 { myRoom2,myRoom1,10, true};
-    Door myDoor1 {myRoom0,myRoom2, 10, true};
-    Door myDoor2 {myRoom1, myRoom0 ,0, false};
-
-    Item myItem0 {"Bonk Hammer", 3, 2};
-    Item myItem1 {"Slime sword", 10, 5};
-    Item myItem2 {"The Horn of Doom and Slimery", -100, -100};
-    
     Spell mySpell0 {"BoomBadaboom", 3,3, true};
     Spell mySpell1 {"Big Bonk", 1,2, true };
     Spell mySpell2 {"The Big Blob Bang", 9999,9999, true};
     Room myRoom0{"Pit", 2,2, true, true, myItem0, mySpell0};
     Room myRoom1{("Shower"),2,0, true,true, myItem1, mySpell1};
     Room myRoom2{"Ballgame Park", 2,1, false, true,  myItem2, mySpell2};
-    
+    Door myDoor0 { myRoom2,myRoom1,10, true};
+    Door myDoor1 {myRoom0,myRoom2, 10, true};
+    Door myDoor2 {myRoom1, myRoom0 ,0, false};
     std::vector<Enemy> myPopulation;
     std::vector<Room> myRooms;
     std::vector<Door> myDoors; 
-    std::vector<Item> myItems;
+    std::vector<ItemType> myItems;
     
 };

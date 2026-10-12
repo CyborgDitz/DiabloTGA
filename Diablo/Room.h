@@ -3,6 +3,7 @@
 
 #include "Chest.h"
 #include "Enemy.h"
+#include "Item.h"
 #include "Library.h"
 #include "Player.h"
 #include "Spell.h"

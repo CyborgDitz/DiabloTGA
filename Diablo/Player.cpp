@@ -27,9 +27,9 @@
                     
                 }
                 
-                if (myInventory[i].GetSecondModifier() >0)
+                if (myInventory[i].GetSecondMod() >0)
                 {
-                    DexStatMod= myInventory[i].GetSecondModifier();
+                    DexStatMod= myInventory[i].GetSecondMod();
                 }
             }
             totalAtk += StrStatMod + DexStatMod + totalAtk;
@@ -125,7 +125,7 @@ void Player::PopulateInventory(Item& aItem)
     //myInventory.push_back(aItem);
 }
 
-void Player::RemoveFromInventory(Item& aItem)
+void Player::RemoveFromInventory(ItemType& aItem)
 {
     if (myInventory.empty()==true)
     {

@@ -384,6 +384,13 @@ void GameManager::StartRoomLoop()
 void GameManager::PlayGame()
 {
 
+
+    
+    
+   
+    
+
+ 
     while (myMainState != MainState::Exit && myPlayer.GetIsAlive())
     {
         PrintMainMenuChoices(myPlayer); //TODO below func in mainmenu?
