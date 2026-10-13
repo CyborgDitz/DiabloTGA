@@ -4,6 +4,7 @@
 #include "Cheats.h"
 #include "Door.h"
 #include "Enemy.h"
+#include "EnemyFactory.h"
 #include "Player.h"
 #include "Room.h"
 #include "Spell.h"
@@ -40,11 +41,9 @@ public:
         PrintStats = 5,
         Count = 6,
     };
-  
-
+    
     Player& GetPlayer() {return myPlayer;}
     MainState& GetMainState() {return myMainState;}
-    
     
     std::vector<Enemy>&GetPopulation(){return myPopulation;}
     
@@ -56,6 +55,7 @@ public:
    
     void PlayGame();
     void StartRoomLoop();
+    void PopulateItems();
 
     void SelectRoomMenuChoices();
     void SetCheatState(Player& aPlayer);
@@ -68,8 +68,6 @@ public:
     void PrintMainMenuChoices(Player& aPlayer);
     bool isEnemiesHere() const;
     
-
-    
 private:
   
     MainState myMainState = MainState::Menu;
@@ -79,21 +77,28 @@ private:
     Room* myCurrentRoom;
     Door* myCurrentDoor;
      
-
-    Enemy myEnemy0{"BobsterMonster",1,1, };
-    Enemy myEnemy1{"Big Blob",1, 2,};
-    Enemy myEnemy2 {"Diablob", 666,666,};
+    ItemFactory myItemFactory;
+    Item myItem0 = myItemFactory.CreateItem(enumItemType::Hammer);
+    Item myItem1 = myItemFactory.CreateItem(enumItemType::Sword);
+    Item myItem2 = myItemFactory.CreateItem(enumItemType::Horn);
+    
+    EnemyFactory myEnemyFactory;
+    Enemy myEnemy0 = myEnemyFactory.CreateEnemy(enumEnemyType::Blob);
+    Enemy myEnemy1 = myEnemyFactory.CreateEnemy(enumEnemyType::BigBlob);
+    Enemy myEnemy2 = myEnemyFactory.CreateEnemy(enumEnemyType::Diablob);
+    
     Spell mySpell0 {"BoomBadaboom", 3,3, true};
     Spell mySpell1 {"Big Bonk", 1,2, true };
     Spell mySpell2 {"The Big Blob Bang", 9999,9999, true};
     
-    Room myRoom0{"Pit", 2,2, true, true, mySpell0};
-    Room myRoom1{("Shower"),2,0, true,true, mySpell1};
-    Room myRoom2{"Ballgame Park", 2,1, false, true, mySpell2};
+    Room myRoom0{"Pit", 2,2, true, true,  myItem0 ,mySpell0};
+    Room myRoom1{("Shower"),2,0, true,true, myItem1, mySpell1};
+    Room myRoom2{"Ballgame Park", 2,1, false, true, myItem2, mySpell2};
     Door myDoor0 { myRoom2,myRoom1,10, true};
     Door myDoor1 {myRoom0,myRoom2, 10, true};
     Door myDoor2 {myRoom1, myRoom0 ,0, false};
-    
+  
+    std::vector<Item> myItems;
     std::vector<Enemy> myPopulation;
     std::vector<Room> myRooms;
     std::vector<Door> myDoors; 

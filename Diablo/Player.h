@@ -2,7 +2,6 @@
 #include <vector>
 
 #include "Item.h"
-#include "ItemType.h"
 #include "Spell.h"
 
 class Player
@@ -81,6 +80,7 @@ private:
     bool myIsAlive = true;
     bool hasGodMode = false;
     bool hasInfinite = false;
+  
     std::vector<Item> myInventory;
     std::vector<Spell> mySpellBook;
 };

@@ -12,7 +12,7 @@ class Room
 {
 
 public:
-    Room(const char* aName, int aDoorsAmount, int aEnemies, bool aHasCest, bool aHasItem, Spell& aSpell);
+    Room(const char* aName, int aDoorsAmount, int aEnemies, bool aHasCest, bool aHasItem, Item& aItem, Spell& aSpell);
     // Room(const char* aName, const int aDoorsAmount, const int aEnemies, bool aHasCest, bool aHasItem,  Spell& aSpell)
     //     : myItemFactory(), mySpell(aSpell)
     //
@@ -46,17 +46,11 @@ public:
     void SetHasItems(bool aHasItems) { myHasItems = aHasItems; }
 
     void PopulateItems();
-    Item&GetItem() { return *myCurrentItem ;}
+    Item& GetItem() { return myItem ;}
     Spell& GetSpell() { return mySpell; }
 
 private:
-    
-   ItemFactory myItemFactory;
-   Item myItem0 = myItemFactory.CreateItem(enumItemType::Hammer);
-   Item myItem1 = myItemFactory.CreateItem(enumItemType::Sword);
-   Item  myItem2 = myItemFactory.CreateItem(enumItemType::Horn);
-    std::vector<Item> myItems;
-    Item* myCurrentItem = &myItems[0];
+    Item myItem;
     Spell mySpell;
     int myDoorsAmount = 2;
     int myEnemies{};

@@ -3,10 +3,10 @@
 
 
 
-Room::Room(const char* aName, const int aDoorsAmount, const int aEnemies, bool aHasCest, bool aHasItem,
-    Spell& aSpell) : mySpell(aSpell)
+Room::Room(const char* aName, const int aDoorsAmount, const int aEnemies, bool aHasCest, bool aHasItem, Item& aItem,
+    Spell& aSpell) : myItem(aItem), mySpell(aSpell)
 {
-    PopulateItems();
+    
     myName = aName;
     myDoorsAmount = aDoorsAmount;
     myEnemies = aEnemies;
@@ -36,13 +36,11 @@ void Room::PrintRoomData(const std::vector<Enemy>* aPopulatiion) const
     }
     if (myHasItems == true)
     {
-        std::cout << "The loot is: " << myCurrentItem->GetName() << std::endl;
+        std::cout << "The loot is: " << myItem.GetName() << std::endl;
     }
     std::cout << "Your spellbook finds a powerful magic in the room! But yo ucan only use it once! It is " << mySpell.GetName()<< std::endl;
    // std::cout << "My spell is " << mySpell << std::endl;
 }
-
-
 
 void Room::PrintEnterRoom(const Player& aPlayer) const
 {
@@ -51,12 +49,3 @@ void Room::PrintEnterRoom(const Player& aPlayer) const
             " enters the... " << '\t' <<
             myName << '\n' << std::endl;
 }
-
-void Room::PopulateItems()
-{
-    myItems.push_back(myItem0);
-    myItems.push_back(myItem1);
-    myItems.push_back(myItem2);
-}
-
-

@@ -4,8 +4,12 @@
 #include <iostream>
 #include <ostream>
 
+Enemy::Enemy(const EnemyType& aEnemyType) : myHealth(0), myMaxHealth(0), myAtk(0), myDefense(0),
+                                            myEnemyType(&aEnemyType) { }
+
 void Enemy::TakeDamage(const int aDamage)
 {
+    const char* myName = GetName();
     const int myCurrentHealth = myHealth;
     myHealth -= aDamage;
     myHealth = std::max(myHealth, 0);
@@ -22,7 +26,7 @@ void Enemy::TakeDamage(const int aDamage)
 }
 void Enemy::PrintStats() const
 {
-    std::cout << "The enemy: "<< myName << " stats are : \n " <<
+    std::cout << "The enemy: "<< GetName() << " stats are : \n " <<
         "HP: " << myHealth << '\t' <<
         "MaxHP: " << myMaxHealth << '\n' << 
         "Atk: " << myAtk << '\t' <<  

@@ -7,9 +7,9 @@
 class ItemFactory
 {
     public:
-  
+    ItemFactory();
+    ~ItemFactory();
     void Init();
-    
     Item CreateItem(const enumItemType aItemType) const;
     
     private:

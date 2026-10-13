@@ -5,9 +5,9 @@ class ItemType
 {  
   
 public:
+    ItemType();
     ItemType( const char* aName,  int aMainMod,  int aSecondMod);
-
-
+    
     const char* GetName() const { return myName; }
     int GetMainMod() const { return myMainMod; }
     int GetSecondMod() const { return mySecondMod; }

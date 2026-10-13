@@ -3,11 +3,12 @@
 #include <iostream>
 
 
-ItemType::ItemType(const char* aName, const int aMainMod, const int aSecondMod)
+ItemType::ItemType() { }
+ItemType::ItemType(const char* aName, int aMainMod, int aSecondMod)
 {
-        strcpy_s(myName, aName);
-        myMainMod = aMainMod;
-        mySecondMod = aSecondMod;
+    strcpy_s(myName, aName);
+    myMainMod = aMainMod;
+    mySecondMod = aSecondMod;
 }
 
 void ItemType::PrintStats() const

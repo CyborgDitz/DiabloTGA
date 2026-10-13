@@ -4,7 +4,9 @@
 #include "Library.h"
 GameManager::GameManager() 
 {      
-   
+   myEnemyFactory.Init();
+    myItemFactory.Init();
+    PopulateItems();
     PopulateRooms();
     PopulateDoors();
     myCurrentRoom = &myRooms[0];
@@ -388,18 +390,17 @@ void GameManager::StartRoomLoop()
         }
     }
 }
-
+void GameManager::PopulateItems()
+{
+    myItems.push_back(myItem0);
+    myItems.push_back(myItem1);
+    myItems.push_back(myItem2);
+}
+    
 
 void GameManager::PlayGame()
 {
 
-
-    
-    
-   
-    
-
- 
     while (myMainState != MainState::Exit && myPlayer.GetIsAlive())
     {
         PrintMainMenuChoices(myPlayer); //TODO below func in mainmenu?

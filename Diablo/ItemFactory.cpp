@@ -1,5 +1,7 @@
 ﻿#include "ItemFactory.h"
 
+ItemFactory::ItemFactory() = default;
+ItemFactory::~ItemFactory() { }
 
 void ItemFactory::Init()
 {

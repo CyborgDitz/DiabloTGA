@@ -11,6 +11,7 @@ enum class enumItemType
 class Item
 {
 public:
+    Item() = delete;
     Item(const ItemType& aItemType);
     int GetMainMod() const;
     int GetSecondMod() const;

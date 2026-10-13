@@ -1,5 +1,8 @@
 ﻿#include "Item.h"
-Item::Item(const ItemType& aItemType) : myItemType(nullptr) { }
+
+
+Item::Item(const ItemType& aItemType) : myItemType(&aItemType) { }
+
 int Item::GetMainMod() const
 {
     return myItemType->GetMainMod();
