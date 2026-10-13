@@ -53,9 +53,9 @@ public:
     void PrintStats() const;
 
     void PopulateInventory(Item& aItem);
-    void RemoveFromInventory(ItemType& aItem);
+    void RemoveFromInventory(Item& aItem);
     void PopulateSpells(Spell& aSpell);
-    void RemoveFromSpells(Spell& aSpell);
+    //void RemoveFromSpells(Spell& aSpell);
     void CastSpell();
     void RemoveSpell();
 

@@ -3,7 +3,7 @@
 class Spell
 {   
 public:
-   Spell( const char* aName,  int aMainMod,  int aSecondMod, bool aHasSpellSlot)   
+   Spell( const char* aName, const int aMainMod, const int aSecondMod, const bool aHasSpellSlot)   
     {
         strcpy_s(myName, aName);
         myMainMod = aMainMod;

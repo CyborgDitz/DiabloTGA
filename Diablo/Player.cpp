@@ -125,7 +125,7 @@ void Player::PopulateInventory(Item& aItem)
     //myInventory.push_back(aItem);
 }
 
-void Player::RemoveFromInventory(ItemType& aItem)
+void Player::RemoveFromInventory(Item& aItem)
 {
     if (myInventory.empty()==true)
     {

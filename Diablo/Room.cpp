@@ -1,8 +1,25 @@
 ﻿#include "Room.h"
 #include <iostream>
-#include "GameManager.h"
 
-void Room::PrintRoomData(std::vector<Enemy>* aPopulatiion)
+
+
+Room::Room(const char* aName, const int aDoorsAmount, const int aEnemies, bool aHasCest, bool aHasItem,
+    Spell& aSpell) : mySpell(aSpell)
+{
+    PopulateItems();
+    myName = aName;
+    myDoorsAmount = aDoorsAmount;
+    myEnemies = aEnemies;
+    myHasChest = aHasCest;
+    if (myEnemies > 0)
+    {
+        myHasEnemies = true;
+    }
+    myHasItems = aHasItem;
+    myHasSpell = true;
+}
+
+void Room::PrintRoomData(const std::vector<Enemy>* aPopulatiion) const
 {
     std::cout << "Room: "<< myName << " has " << myDoorsAmount << " doors! " << std::endl;
     if (aPopulatiion->size() > 0)
@@ -19,7 +36,7 @@ void Room::PrintRoomData(std::vector<Enemy>* aPopulatiion)
     }
     if (myHasItems == true)
     {
-        std::cout << "The loot is: " << myItem.GetName() << std::endl;
+        std::cout << "The loot is: " << myCurrentItem->GetName() << std::endl;
     }
     std::cout << "Your spellbook finds a powerful magic in the room! But yo ucan only use it once! It is " << mySpell.GetName()<< std::endl;
    // std::cout << "My spell is " << mySpell << std::endl;
@@ -33,6 +50,13 @@ void Room::PrintEnterRoom(const Player& aPlayer) const
         std::cout << aPlayer.GetName() << '\t' <<
             " enters the... " << '\t' <<
             myName << '\n' << std::endl;
+}
+
+void Room::PopulateItems()
+{
+    myItems.push_back(myItem0);
+    myItems.push_back(myItem1);
+    myItems.push_back(myItem2);
 }
 
 

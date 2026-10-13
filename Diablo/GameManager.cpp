@@ -2,6 +2,14 @@
 #include <iostream>
 #include <ostream>
 #include "Library.h"
+GameManager::GameManager() 
+{      
+   
+    PopulateRooms();
+    PopulateDoors();
+    myCurrentRoom = &myRooms[0];
+    myCurrentDoor = &myDoors[0];
+}
 
 void GameManager::PrintMainMenuChoices(Player& aPlayer)
 {
@@ -15,12 +23,13 @@ void GameManager::PrintMainMenuChoices(Player& aPlayer)
     }
 }
 
+
 void GameManager::PopulateRooms()
 {
     myRooms.push_back(myRoom0);
     myRooms.push_back(myRoom1);
      myRooms.push_back(myRoom2);
-    // std::cout<< "debug There are " << aRooms.size() << " rooms" << std::endl; 
+    
 }
 
 void GameManager::PopulateDoors()

@@ -11,10 +11,7 @@ enum class enumItemType
 class Item
 {
 public:
-    Item() =delete;
     Item(const ItemType& aItemType);
-    ~Item();
-    
     int GetMainMod() const;
     int GetSecondMod() const;
     const char* GetName() const;
