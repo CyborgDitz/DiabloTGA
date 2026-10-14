@@ -20,7 +20,8 @@ void Door::LockPick(const int aPlayerAttribute)
 }
 Room& Door::PickDoor(std::vector<Door>& aDoors)
 {
-    const int input =  Library::SetInput(1, aDoors.size())-1;
+     const int maxInput = static_cast<int>(aDoors.size() - 1);
+    const int input =  Library::SetInput(1, maxInput);
     std::cout << "I didnt go int" << aDoors[input].GetPrevRoom().GetName() << std::endl;
     std::cout << "I am going into " << aDoors[input].GetNextRoom().GetName() << std::endl;
     Room& room = aDoors[input].GetNextRoom();

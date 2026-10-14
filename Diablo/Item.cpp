@@ -13,6 +13,11 @@ int Item::GetSecondMod() const
     return myItemType->GetSecondMod();
 }
 
+int Item::GetWeight() const
+{
+    return myItemType->GetWeight();
+}
+
 const char* Item::GetName() const
 {
     return myItemType->GetName();

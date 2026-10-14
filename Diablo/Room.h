@@ -13,22 +13,7 @@ class Room
 
 public:
     Room(const char* aName, int aDoorsAmount, int aEnemies, bool aHasCest, bool aHasItem, Item& aItem, Spell& aSpell);
-    // Room(const char* aName, const int aDoorsAmount, const int aEnemies, bool aHasCest, bool aHasItem,  Spell& aSpell)
-    //     : myItemFactory(), mySpell(aSpell)
-    //
-    // {
-    //     PopulateItems();
-    //     myName = aName;
-    //     myDoorsAmount = aDoorsAmount;
-    //     myEnemies = aEnemies;
-    //     myHasChest = aHasCest;
-    //     if (myEnemies > 0)
-    //     {
-    //         myHasEnemies = true;
-    //     }
-    //     myHasItems = aHasItem;
-    //     myHasSpell = true;
-    // }
+   
 
 
     const char* GetName() const { return myName; }

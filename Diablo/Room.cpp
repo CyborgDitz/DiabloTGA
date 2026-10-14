@@ -16,7 +16,7 @@ Room::Room(const char* aName, const int aDoorsAmount, const int aEnemies, bool a
         myHasEnemies = true;
     }
     myHasItems = aHasItem;
-    myHasSpell = true;
+    myHasSpell = aSpell.GetHasSpellSlot();
 }
 
 void Room::PrintRoomData(const std::vector<Enemy>* aPopulatiion) const
@@ -38,7 +38,16 @@ void Room::PrintRoomData(const std::vector<Enemy>* aPopulatiion) const
     {
         std::cout << "The loot is: " << myItem.GetName() << std::endl;
     }
-    std::cout << "Your spellbook finds a powerful magic in the room! But yo ucan only use it once! It is " << mySpell.GetName()<< std::endl;
+    if (myHasSpell == true)
+    {
+
+        std::cout << "Your spellbook finds a powerful magic in the room! But you can only use it once!\n "
+                     "It is " << mySpell.GetName()<< std::endl;
+    }
+    else
+    {
+        std::cout << "There is no longer any magic here..." << std::endl;
+    }
    // std::cout << "My spell is " << mySpell << std::endl;
 }
 

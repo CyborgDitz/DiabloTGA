@@ -15,6 +15,7 @@ public:
     const char* GetName() const { return myName; }
     int GetMainMod() const { return myMainMod; }
     int GetSecondModifier() const { return mySecondMod; }
+    bool GetHasSpellSlot() const { return hasSpellSlot; }
   
     void PrintStats() const;
 

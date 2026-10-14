@@ -15,10 +15,10 @@ public:
     const char* GetName() const { return myName; }
     void SetIsAlive(bool aIsAlive) { myIsAlive = aIsAlive; }
     
-    void SetHealth(int aHealth) { myHealth = aHealth; }
-    void SetMaxHealth(int aMaxHealth) { myMaxHealth = aMaxHealth; }
-    void SetAtk(int aAtk) { myAtk = aAtk; }
-    void SetDefense(int aDefense) { myDefense = aDefense; }
+    void SetMaxHealth(const int aMaxHealth) { myMaxHealth = aMaxHealth; }
+    void SetCurrentHealthToMax() { myHealth = myMaxHealth; }
+    void SetAtk(const int aAtk) { myAtk = aAtk; }
+    void SetDefense(const int aDefense) { myDefense = aDefense; }
     
     void SetName(const char* aName) { strcpy_s(myName, aName); }
     

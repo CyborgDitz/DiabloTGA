@@ -45,6 +45,8 @@ public:
     Player& GetPlayer() {return myPlayer;}
     MainState& GetMainState() {return myMainState;}
     
+    bool GetDiabloDead() const {return isDiabloDead;}
+    void SetDiabloDead(bool aDiabloDead){isDiabloDead = aDiabloDead;}
     std::vector<Enemy>&GetPopulation(){return myPopulation;}
     
     void PopulateRooms();
@@ -70,25 +72,23 @@ public:
     
 private:
   
+    bool isDiabloDead = false;
     MainState myMainState = MainState::Menu;
     CheatState myCheatState = CheatState::Count;
     RoomState myRoomState = RoomState::Explore;
-    Player myPlayer{10,11,12};
-    Room* myCurrentRoom;
-    Door* myCurrentDoor;
-     
     ItemFactory myItemFactory;
+ 
+    EnemyFactory myEnemyFactory;
     Item myItem0 = myItemFactory.CreateItem(enumItemType::Hammer);
     Item myItem1 = myItemFactory.CreateItem(enumItemType::Sword);
     Item myItem2 = myItemFactory.CreateItem(enumItemType::Horn);
     
-    EnemyFactory myEnemyFactory;
-    Enemy myEnemy0 = myEnemyFactory.CreateEnemy(enumEnemyType::Blob);
-    Enemy myEnemy1 = myEnemyFactory.CreateEnemy(enumEnemyType::BigBlob);
-    Enemy myEnemy2 = myEnemyFactory.CreateEnemy(enumEnemyType::Diablob);
-    
+    Player myPlayer{10,11,12};
+    Room* myCurrentRoom;
+    Door* myCurrentDoor;
+     
     Spell mySpell0 {"BoomBadaboom", 3,3, true};
-    Spell mySpell1 {"Big Bonk", 1,2, true };
+    Spell mySpell1 {"Big Bonk", 1,2, false };
     Spell mySpell2 {"The Big Blob Bang", 9999,9999, true};
     
     Room myRoom0{"Pit", 2,2, true, true,  myItem0 ,mySpell0};
@@ -102,5 +102,6 @@ private:
     std::vector<Enemy> myPopulation;
     std::vector<Room> myRooms;
     std::vector<Door> myDoors; 
+    std::vector<Enemy> myEnemies;
     
 };

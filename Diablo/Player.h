@@ -62,8 +62,6 @@ public:
 
     std::vector<Item> GetInventory() const { return myInventory; }
 
- 
-
 private:
     //  const char* myName[17] = {}; not MVP
     char myName[17] = "Bob";
@@ -74,6 +72,7 @@ private:
     int myAtk{};
     int myMaxHealth{};
     int myCarryCap{};
+    int myWeight{};
     int myDefense{};
 
     bool hasSpellActive = false;

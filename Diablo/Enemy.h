@@ -13,25 +13,27 @@ class Enemy
 {
 
     public:
-  
+
     Enemy(const EnemyType& aEnemyType);
-    int GetHealth()const {return myEnemyType->GetMaxHealth();}
-    int GetMaxHealth() const { return myMaxHealth; }
-    int GetAtk() const{ return myEnemyType->GetAtk();}
-    int GetDef() const {return myEnemyType->GetDefense(); }
-    const char* GetName() const {return myEnemyType->GetName(); }
     
+  //  int GetHealth() const {return myHealth;}
+    void SetHealth(const int aHealth){ myHealth = aHealth;}
     bool GetIsAlive() const { return myIsAlive; }
-    void SetIsAlive(bool aIsAlive) { myIsAlive = aIsAlive; }
+    void SetIsAlive(const bool aIsAlive) { myIsAlive = aIsAlive; }
+    
+    int GetMaxHealth() const;
+    int GetHealth() const;
+    int GetAtk() const;
+    int GetDef() const ;
+    const char* GetName() const;
     
     void TakeDamage(int aDamage);
     void PrintStats() const;
     
     private:
-    int myHealth;
-    int myMaxHealth;
-    int myAtk;
-    int myDefense;
-    int myIsAlive = true;
+    int myMaxHealth{};
+   int myHealth{};
+    // int myDefense;
+   int myIsAlive = true;
         const EnemyType* myEnemyType;
 };

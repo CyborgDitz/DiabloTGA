@@ -48,12 +48,13 @@ void Player::PrintStats() const
         "DEX: " << myDex << '\t' <<
         "VIT " << myVit << '\t' <<
         "Carrying Cap: " << myCarryCap << '\n' <<std::endl;
+        system("pause");
 }
 
 void Player::PopulateSpells(Spell& aSpell)
 {
-    const int myInventorySize = mySpellBook.size()+1;
-    for (int i = 0; i < myInventorySize ; i++)
+    const int mySpellBookSize = static_cast <int> (mySpellBook.size() + 1);
+    for (int i = 0; i < mySpellBookSize; i++)
     {
         mySpellBook.push_back(aSpell);
     }
@@ -117,12 +118,22 @@ void Player::RemoveSpell()
 
 void Player::PopulateInventory(Item& aItem)
 {  
-    const int myInventorySize = myInventory.size()+1;
-    for (int i = 0; i < myInventorySize ; i++)
-    {
+    const int myInventorySize = myInventory.size();
+         const int totalWeight = myWeight;
+        const int itemWeight = aItem.GetWeight();
+        if (itemWeight + totalWeight > myCarryCap)
+        {
+            std::cout << "Inventory is full.. The item broke now oops" << std::endl;
+           return;
+        }
+        for (int i = 0; i <= myInventorySize; i++)
+        { 
+     
         myInventory.push_back(aItem);
-    }
-    //myInventory.push_back(aItem);
+          
+         }
+        myWeight += itemWeight;
+        std::cout << "I took the " << aItem.GetName() << " and put it into my inventory." << std::endl;
 }
 
 void Player::RemoveFromInventory(Item& aItem)

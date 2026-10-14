@@ -4,8 +4,31 @@
 #include <iostream>
 #include <ostream>
 
-Enemy::Enemy(const EnemyType& aEnemyType) : myHealth(0), myMaxHealth(0), myAtk(0), myDefense(0),
-                                            myEnemyType(&aEnemyType) { }
+Enemy::Enemy(const EnemyType& aEnemyType)  : myEnemyType(&aEnemyType)
+{
+    myHealth = aEnemyType.GetHealth();
+}
+int Enemy::GetHealth() const
+{
+    return myEnemyType->GetHealth();
+}
+int Enemy::GetMaxHealth() const
+{
+    return myEnemyType->GetMaxHealth();
+}
+int Enemy::GetAtk() const
+{
+    return myEnemyType->GetAtk();
+}
+int Enemy::GetDef() const
+{
+    return myEnemyType->GetDefense();
+}
+const char* Enemy::GetName() const
+{
+    return myEnemyType->GetName();
+}
+
 
 void Enemy::TakeDamage(const int aDamage)
 {
@@ -27,8 +50,8 @@ void Enemy::TakeDamage(const int aDamage)
 void Enemy::PrintStats() const
 {
     std::cout << "The enemy: "<< GetName() << " stats are : \n " <<
-        "HP: " << myHealth << '\t' <<
-        "MaxHP: " << myMaxHealth << '\n' << 
-        "Atk: " << myAtk << '\t' <<  
-        "Def: " << myDefense << '\n' << std::endl;
+        "Current HP: " << myHealth << '\t' <<
+        "MaxHP: " << GetMaxHealth() << '\n' << 
+        "Atk: " << GetAtk()<< '\t' <<  
+        "Def: " << GetDef() << '\n' << std::endl;
 }
