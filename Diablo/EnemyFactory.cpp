@@ -30,6 +30,7 @@ void EnemyFactory::Init()
     myEnemyTypes[enemyDiablob].SetMaxHealth(666);
     myEnemyTypes[enemyDiablob].SetCurrentHealthToMax();
     myEnemyTypes[enemyDiablob].SetDefense(666);
+    myEnemyTypes[enemyDiablob].SetHasLoot(true);
 }
 Enemy EnemyFactory::CreateEnemy(const enumEnemyType aEnemyType)  const
 {

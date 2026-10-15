@@ -1,6 +1,6 @@
 ﻿#pragma once
 #include <vector>
-#include "Chest.h"
+ 
 #include "Enemy.h"
 #include "ItemFactory.h"
 
@@ -29,6 +29,7 @@ public:
     void SetHasSpell(const bool aActive) { myHasSpell = aActive; }
     void SetHasChest(bool aHasChest) { myHasChest = aHasChest; }
     void SetHasItems(bool aHasItems) { myHasItems = aHasItems; }
+    void SetEnemiesAmount(int aEnemies) { myEnemies = aEnemies; }
 
     void PopulateItems();
     Item& GetItem() { return myItem ;}

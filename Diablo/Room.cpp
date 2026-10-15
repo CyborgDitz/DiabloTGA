@@ -32,7 +32,7 @@ void Room::PrintRoomData(const std::vector<Enemy>* aPopulatiion) const
     }
     if (myHasChest == true)
     {
-        std::cout << "There is a chest! I will open it right now!" << std::endl;
+        std::cout << "There is a chest!! " << std::endl;
     }
     if (myHasItems == true)
     {
@@ -53,7 +53,7 @@ void Room::PrintRoomData(const std::vector<Enemy>* aPopulatiion) const
 
 void Room::PrintEnterRoom(const Player& aPlayer) const
 {
-        system("cls");
+        ("cls");
         std::cout << aPlayer.GetName() << '\t' <<
             " enters the... " << '\t' <<
             myName << '\n' << std::endl;

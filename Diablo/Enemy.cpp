@@ -12,6 +12,12 @@ int Enemy::GetHealth() const
 {
     return myEnemyType->GetHealth();
 }
+
+bool Enemy::GetHasLoot() const
+{
+    return myEnemyType->GetHasLoot();
+}
+
 int Enemy::GetMaxHealth() const
 {
     return myEnemyType->GetMaxHealth();

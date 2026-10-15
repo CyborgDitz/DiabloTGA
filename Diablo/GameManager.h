@@ -94,9 +94,9 @@ private:
     Room myRoom0{"Pit", 2,2, true, true,  myItem0 ,mySpell0};
     Room myRoom1{("Shower"),2,0, true,true, myItem1, mySpell1};
     Room myRoom2{"Ballgame Park", 2,1, false, true, myItem2, mySpell2};
-    Door myDoor0 { myRoom2,myRoom1,10, true};
-    Door myDoor1 {myRoom0,myRoom2, 10, true};
-    Door myDoor2 {myRoom1, myRoom0 ,0, false};
+    Door myDoor0 {1, myRoom2,myRoom1,10, true};
+    Door myDoor1 {2,myRoom0,myRoom2, 10, true};
+    Door myDoor2 {3, myRoom1, myRoom0 ,0, false};
   
     std::vector<Item> myItems;
     std::vector<Enemy> myPopulation;

@@ -156,7 +156,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Cheats.cpp" />
-    <ClCompile Include="Chest.cpp" />
     <ClCompile Include="Diablo.cpp" />
     <ClCompile Include="Door.cpp" />
     <ClCompile Include="Enemy.cpp" />
@@ -173,7 +172,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cheats.h" />
-    <ClInclude Include="Chest.h" />
     <ClInclude Include="EnemyFactory.h" />
     <ClInclude Include="EnemyType.h" />
     <ClInclude Include="Item.h" />

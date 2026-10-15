@@ -7,9 +7,10 @@ class Door
 {
 
 public:
-    Door(Room& aPrevRoom, Room& aNextRoom, const int aDC, const bool aIsLocked) 
+    Door(int aDoorID, Room& aPrevRoom, Room& aNextRoom, const int aDC, const bool aIsLocked) 
     : myPrevRoom(aPrevRoom), myNextRoom(aNextRoom)
     {
+        myDoorID = aDoorID;
         myDC = aDC;
         myIsLocked = aIsLocked;
     }
@@ -21,19 +22,21 @@ public:
         Count = 3
     };
 
-    int GetDC(){return myDC;}
+    int GetDC() const {return myDC;}
     void LockPick(int aPlayerAttribute);
     bool GetIsLocked() const {return myIsLocked;}
+    int GetDoorID() const {return myDoorID;}
     Room& PickDoor(std::vector<Door>& aDoors);
     void UnlockDoor(const Player& aPlayer);
     void Bash(int aPlayerAttribute);
     void MoveToRoom(const Room& aFromRoom) const;
-    Room& GetPrevRoom(){return myPrevRoom;}
-    Room& GetNextRoom(){return myNextRoom;}
+    Room& GetPrevRoom() const {return myPrevRoom;}
+    Room& GetNextRoom() const {return myNextRoom;}
    
-    //Room& GetNexRoom(const Room& aFromRoom) const;
+    Room& GetNexRoom(const Room& aFromRoom) const;
 
 private:
+    int myDoorID;
     Room& myPrevRoom;
     Room& myNextRoom;
     bool myIsLocked{};

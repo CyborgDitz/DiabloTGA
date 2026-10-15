@@ -32,5 +32,6 @@ namespace Library
         {
             std::cout << "These are the choices" << std::endl;
             std::cout << "1: Explore\t 2: Attack the Monsters!\t 3: Open Door\t 4: Cast spells! 5: See your stats\t" << std::endl;
+            std::cout << "or 0 for the secret go to the menu Exit state" << std::endl;
         }
     }

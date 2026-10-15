@@ -20,7 +20,7 @@ void Door::LockPick(const int aPlayerAttribute)
 }
 Room& Door::PickDoor(std::vector<Door>& aDoors)
 {
-     const int maxInput = static_cast<int>(aDoors.size() - 1);
+     const int maxInput = static_cast<int>(aDoors.size());
     const int input =  Library::SetInput(1, maxInput);
     std::cout << "I didnt go int" << aDoors[input].GetPrevRoom().GetName() << std::endl;
     std::cout << "I am going into " << aDoors[input].GetNextRoom().GetName() << std::endl;
@@ -33,14 +33,14 @@ void Door::UnlockDoor(const Player& aPlayer)
 {
     if (myIsLocked == true)
     {
-        std::cout << "Door is locked!" << std::endl;
+        std::cout << "Door: " << myDoorID << " is locked!" << std::endl;
         std::cout << "lock dc  " << GetDC() << std::endl;
    
         const int min = 1;
         const int max =2;
         while (myIsLocked == true)
         { 
-            std::cout << "Do you want to unlock the door with 1: Bash, 2: Picklock, or 3: leave!" << std::endl;
+            std::cout << "Do you want to unlock the door with 1: Bash, 2: Picklock" << std::endl;
             const Unlock input =static_cast<Unlock>(Library::SetInput(min ,max));
             if (input == Unlock::Bash)
             {
@@ -50,19 +50,17 @@ void Door::UnlockDoor(const Player& aPlayer)
             {
                 LockPick(aPlayer.GetDex());
             }
-            else if (input == Unlock::Exit)
-            {
-                std::cout << "Ill try another door!" << std::endl;
-                return;
-            }
             else
             {
-                std::cout << "Door is unlocked!" << std::endl;
+                std::cout << "Door " << myDoorID << " unlocked!" << std::endl;
                 return;
             }
-            
-        
         }
+      
+    }
+    else
+    {
+        std::cout << "Door " << myDoorID << " unlocked!" << std::endl;
     }
 }
 void Door::Bash(const int aPlayerAttribute)

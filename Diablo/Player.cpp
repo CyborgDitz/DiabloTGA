@@ -12,13 +12,13 @@
           return totalAtk = 9999;
         }
         
-        //could put in stats somehow?
+       
         int StrStatMod = myStr;
         int DexStatMod= myDex;
         
         if (myInventory.empty() == false)
         {
-            // if ENUM weapon
+           
             for (int i = 0; i < myInventory.size(); i++)
             {
                 if (myInventory[i].GetMainMod() >0)
@@ -59,22 +59,20 @@ void Player::PopulateSpells(Spell& aSpell)
         mySpellBook.push_back(aSpell);
     }
 
-    //std::cout<< "debug There are " << aDoors.size() << " doors" << std::endl; 
 }
 
 void Player::CastSpell()
 {
         if (mySpellBook.empty() == false && hasSpellActive == false)
         {
-            // if ENUM weapon
-            for (int i = 0; i < mySpellBook.size(); i++)
+            for (int i = 0; i < static_cast<int>(mySpellBook.size()); i++)
             {
                 if (mySpellBook[i].GetMainMod() >0)
                 {
                     myStr += mySpellBook[i].GetMainMod();
                     myDex += mySpellBook[i].GetMainMod();
                     myVit += mySpellBook[i].GetMainMod();
-                    
+                    std::cout<< "My MAIN stats are altered by by: " << mySpellBook[i].GetMainMod() << std::endl;
                 }
                 
                 if (mySpellBook[i].GetSecondModifier() >0)
@@ -82,8 +80,11 @@ void Player::CastSpell()
                     myAtk += mySpellBook[i].GetSecondModifier();
                     myDefense += mySpellBook[i].GetSecondModifier();
                     myCarryCap += mySpellBook[i].GetSecondModifier();
+                    std::cout<< "My SECONDARY stats are altered by by: " << mySpellBook[i].GetSecondModifier() << std::endl;
                 }
+               
             }
+          
            hasSpellActive = true;
         }
         
@@ -93,8 +94,8 @@ void Player::RemoveSpell()
     {
         if (mySpellBook.empty() == false && hasSpellActive == true)
         {
-            // if ENUM weapon
-            for (int i = 0; i < mySpellBook.size(); i++)
+           
+            for (int i = 0; i < static_cast<int>(mySpellBook.size()); i++)
             {
                 if (mySpellBook[i].GetMainMod() >0)
                 {
@@ -118,7 +119,7 @@ void Player::RemoveSpell()
 
 void Player::PopulateInventory(Item& aItem)
 {  
-    const int myInventorySize = myInventory.size();
+    const int myInventorySize = static_cast<int>(myInventory.size())+1;
          const int totalWeight = myWeight;
         const int itemWeight = aItem.GetWeight();
         if (itemWeight + totalWeight > myCarryCap)
@@ -145,14 +146,9 @@ void Player::RemoveFromInventory(Item& aItem)
     }
     
     for (int i = 0; i < myInventory.size(); i++)
-    { 
-        const char* myInvItem = myInventory[i].GetName();
-        const char * targetItem = aItem.GetName();
-        //bool removedItem = myInventory[i].GetName() == aItem.GetName();
-        
-        //if (removedItem)
-        bool removeItem = strcmp(myInventory[i].GetName(), aItem.GetName()) == 0;
-        if (removeItem)
+    {
+        const bool removedItem = myInventory[i].GetName() == aItem.GetName();
+        if (removedItem)
         {
             std::cout << "I removed item " << aItem.GetName() << " from inventory" << std::endl;
             myInventory.erase(myInventory.begin() + i);
@@ -163,7 +159,7 @@ void Player::RemoveFromInventory(Item& aItem)
 
 void Player::TakeDamage(const int aDamage)
 {
-    //todo same func for monster and myPlayer
+   
     if (hasGodMode == true)
     {
         std::cout << "I am a god! " << std::endl;
