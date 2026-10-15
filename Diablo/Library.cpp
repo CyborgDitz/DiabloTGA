@@ -11,7 +11,7 @@ namespace Library
             {
                 std::cout << "Choice: " << std::endl;
                 std::cin >> inputInt;
-                if (std::cin.fail() )
+                if (std::cin.fail())
                 {
                     std::cin.clear();
                     std::cin.ignore(1000, '\n');
@@ -31,7 +31,8 @@ namespace Library
         void SayRoomMenu()
         {
             std::cout << "These are the choices" << std::endl;
-            std::cout << "1: Explore\t 2: Attack the Monsters!\t 3: Open Door\t 4: Cast spells! 5: See your stats\t" << std::endl;
+            std::cout << "1: Explore\t 2: Attack the Monsters!\t 3: Open Door\t 4: Cast spells! 5: See your stats\t" <<
+                std::endl;
             std::cout << "or 0 for the secret go to the menu Exit state" << std::endl;
         }
     }

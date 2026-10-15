@@ -7,9 +7,9 @@
 class EnemyFactory
 {
 public:
-    EnemyFactory() ; 
-    
+    EnemyFactory();
     ~EnemyFactory();
+    
     void Init();
     Enemy CreateEnemy(enumEnemyType aEnemyType) const;
 

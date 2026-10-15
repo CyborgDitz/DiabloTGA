@@ -8,12 +8,13 @@ enum class enumItemType
     Horn,
     Count
 };
+
 class Item
 {
 public:
     Item() = delete;
     Item(const ItemType& aItemType);
-    
+
     int GetMainMod() const;
     int GetSecondMod() const;
     int GetWeight() const;

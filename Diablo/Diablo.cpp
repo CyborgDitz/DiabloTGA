@@ -1,12 +1,9 @@
-#include <iostream>
-
 #include "GameManager.h"
 
 int main()
-{   
-    
-  GameManager game;
-    
+{
+    GameManager game;
+
     game.PlayGame();
     return 0;
 }

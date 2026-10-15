@@ -6,13 +6,12 @@
 
 class ItemFactory
 {
-    public:
+public:
     ItemFactory();
     ~ItemFactory();
     void Init();
     Item CreateItem(const enumItemType aItemType) const;
-    
-    private:
-    std::array<ItemType, static_cast<int>(enumItemType::Count)> myItemTypes;
 
+private:
+    std::array<ItemType, static_cast<int>(enumItemType::Count)> myItemTypes;
 };

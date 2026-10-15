@@ -2,11 +2,9 @@
 #include <iostream>
 
 
-
-Room::Room(const char* aName, const int aDoorsAmount, const int aEnemies, bool aHasCest, bool aHasItem, Item& aItem,
-    Spell& aSpell) : myItem(aItem), mySpell(aSpell)
+Room::Room(const char* aName, const int aDoorsAmount, const int aEnemies, const bool aHasCest, const bool aHasItem, const Item& aItem,
+           const Spell& aSpell) : myItem(aItem), mySpell(aSpell)
 {
-    
     myName = aName;
     myDoorsAmount = aDoorsAmount;
     myEnemies = aEnemies;
@@ -19,12 +17,12 @@ Room::Room(const char* aName, const int aDoorsAmount, const int aEnemies, bool a
     myHasSpell = aSpell.GetHasSpellSlot();
 }
 
-void Room::PrintRoomData(const std::vector<Enemy>* aPopulatiion) const
+void Room::PrintRoomData(const std::vector<Enemy>* aPopulation) const
 {
-    std::cout << "Room: "<< myName << " has " << myDoorsAmount << " doors! " << std::endl;
-    if (aPopulatiion->size() > 0)
+    std::cout << "Room: " << myName << " has " << myDoorsAmount << " doors! " << std::endl;
+    if (aPopulation->empty())
     {
-        std::cout << "There are: " << aPopulatiion->size()<< " enemies in here!"<< std::endl;
+        std::cout << "There are: " << aPopulation->size() << " enemies in here!" << std::endl;
     }
     else
     {
@@ -40,21 +38,20 @@ void Room::PrintRoomData(const std::vector<Enemy>* aPopulatiion) const
     }
     if (myHasSpell == true)
     {
-
         std::cout << "Your spellbook finds a powerful magic in the room! But you can only use it once!\n "
-                     "It is " << mySpell.GetName()<< std::endl;
+            "It is " << mySpell.GetName() << std::endl;
     }
     else
     {
         std::cout << "There is no longer any magic here..." << std::endl;
     }
-   // std::cout << "My spell is " << mySpell << std::endl;
+
 }
 
 void Room::PrintEnterRoom(const Player& aPlayer) const
 {
-        ("cls");
-        std::cout << aPlayer.GetName() << '\t' <<
-            " enters the... " << '\t' <<
-            myName << '\n' << std::endl;
+    system("cls");
+    std::cout << aPlayer.GetName() << '\t' <<
+        " enters the... " << '\t' <<
+        myName << '\n' << std::endl;
 }

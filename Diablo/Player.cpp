@@ -1,7 +1,5 @@
 ﻿#include "Player.h"
-
 #include <iostream>
-
 #include "Room.h"
 
     int Player::CalcPlayerAttack() const
@@ -63,7 +61,7 @@ void Player::PopulateSpells(Spell& aSpell)
 
 void Player::CastSpell()
 {
-        if (mySpellBook.empty() == false && hasSpellActive == false)
+        if (mySpellBook.empty() == false && myHasSpellActive == false)
         {
             for (int i = 0; i < static_cast<int>(mySpellBook.size()); i++)
             {
@@ -85,14 +83,14 @@ void Player::CastSpell()
                
             }
           
-           hasSpellActive = true;
+           myHasSpellActive = true;
         }
         
         
 }
 void Player::RemoveSpell()
     {
-        if (mySpellBook.empty() == false && hasSpellActive == true)
+        if (mySpellBook.empty() == false && myHasSpellActive == true)
         {
            
             for (int i = 0; i < static_cast<int>(mySpellBook.size()); i++)
@@ -113,7 +111,7 @@ void Player::RemoveSpell()
                 }
             }
             mySpellBook.clear();
-            hasSpellActive  = false;
+            myHasSpellActive  = false;
         }
     }
 
@@ -160,7 +158,7 @@ void Player::RemoveFromInventory(Item& aItem)
 void Player::TakeDamage(const int aDamage)
 {
    
-    if (hasGodMode == true)
+    if (myHasGodMode == true)
     {
         std::cout << "I am a god! " << std::endl;
         return;
